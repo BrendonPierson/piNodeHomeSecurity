@@ -1,8 +1,8 @@
-var io = require('./gpio');
+var GPIO = require('./gpio');
 
-setTimeout(io.soundAlarm, 1000);
-setTimeout(io.stopAlarm, 1000);
+setTimeout(GPIO.soundAlarm, 1000);
+setTimeout(GPIO.stopAlarm, 1000);
     
 
  
-process.on('SIGINT', io.exit);
+process.on('SIGINT', GPIO.exit);

@@ -7,7 +7,6 @@ var GPIO = function(){
       button = new Gpio(12, 'in', 'both'), //white
       led = new Gpio(17, 'out'); //black
       
-
   return {
     soundAlarm: function(){
       buzzer.write(1);
@@ -43,7 +42,7 @@ var GPIO = function(){
 
 
  
-process.on('SIGINT', GPIO.exit);
+process.on('SIGINT', GPIO.exit());
 
 
 module.exports = GPIO;

@@ -26,7 +26,7 @@ var GPIO = function(){
       backDoor.watch(function(err, value){
       if (err) exit ();
       setTimeout(soundAlarm(), 10000);
-      
+      });
     },
     exit: function() {
       buzzer.unexport();

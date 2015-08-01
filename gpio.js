@@ -11,6 +11,7 @@ var io = (function(){
         button.unexport();
         backDoor.unexport();
         pir.unexport();
+        led.unexport();
         process.exit();
     }
 
@@ -48,6 +49,7 @@ var io = (function(){
       button.unexport();
       backDoor.unexport();
       pir.unexport();
+      led.unexport();
       process.exit();
     },
   }

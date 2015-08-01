@@ -1,3 +1,8 @@
-var server = require('./server');
+var io = require('./gpio');
 
-server.test();
+setTimeout(io.soundAlarm(), 1000);
+setTimeout(io.stopAlarm(), 1000);
+    
+
+ 
+process.on('SIGINT', io.exit);

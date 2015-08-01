@@ -36,13 +36,13 @@ var io = (function(){
       backDoor.watch(function(err, value){
       if (err) exit ();
         soundAlarm();
-      }
+      });
     },
     armedWithDelay: function() {
       backDoor.watch(function(err, value){
       if (err) exit ();
-        setTimeout(soundAlarm, 10000);
-      }
+        setTimeout(soundAlarm(), 10000);
+      });
     },
     exit: function() {
       buzzer.unexport();

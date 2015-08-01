@@ -1,7 +1,7 @@
 var GPIO = require('./gpio');
 
-setTimeout(GPIO.soundAlarm(), 1000);
-setTimeout(GPIO.stopAlarm(), 1000);
+setTimeout(GPIO.soundAlarm(), 2000);
+setTimeout(GPIO.stopAlarm(), 2000);
     
 
  

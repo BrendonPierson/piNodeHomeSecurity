@@ -42,7 +42,7 @@ var GPIO = function(){
 
 
  
-process.on('SIGINT', GPIO.exit);
 
 
-module.exports = GPIO;
+
+module.exports = GPIO();

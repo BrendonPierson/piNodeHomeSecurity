@@ -1,4 +1,4 @@
-var GPIO = (function(){
+var GPIO = function(){
 
   var Gpio = require('onoff').Gpio,
       backDoor = new Gpio(23, 'in', 'falling'), //blue
@@ -38,7 +38,7 @@ var GPIO = (function(){
       process.exit();
     },
   }
-});
+};
 
 
 

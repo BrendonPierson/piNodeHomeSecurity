@@ -1,0 +1,23 @@
+{
+  "name": "raspi_node_home_security",
+  "version": "1.0.0",
+  "description": "A home security system built on a raspberry pi running node.js.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "home",
+    "security",
+    "gpio",
+    "alarm"
+  ],
+  "author": "Brendon Pierson",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.1",
+    "onoff": "^1.0.2"
+  }
+}

@@ -5,7 +5,7 @@ var GPIO = (function(){
       pir = new Gpio(16, 'in', 'both'), //orange
       buzzer = new Gpio(25, 'out'), //purple
       button = new Gpio(12, 'in', 'both'), //white
-      led = new Gpio(17, 'out'), //black
+      led = new Gpio(17, 'out'); //black
       
 
   return {
@@ -43,7 +43,7 @@ var GPIO = (function(){
 
 
  
-process.on('SIGINT', io.exit);
+process.on('SIGINT', GPIO.exit);
 
 
 module.exports = GPIO;

@@ -20,6 +20,7 @@ var GPIO = function(){
       backDoor.watch(function(err, value){
       if (err) exit ();
         soundAlarm();
+	console.log("door open");
       });
     },
     armedWithDelay: function() {

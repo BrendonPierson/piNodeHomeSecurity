@@ -1,7 +1,7 @@
 var GPIO = function(){
 
   var Gpio = require('onoff').Gpio,
-      backDoor = new Gpio(23, 'in', 'falling'), //blue
+      backDoor = new Gpio(23, 'in', 'both'), //blue
       pir = new Gpio(16, 'in', 'both'), //orange
       buzzer = new Gpio(25, 'out'), //purple
       button = new Gpio(12, 'in', 'both'), //white
@@ -17,10 +17,11 @@ var GPIO = function(){
       console.log("buzz off")
     },
     armedNoDelay: function(){
+	    console.log("armedNoDelay function has fired");
       backDoor.watch(function(err, value){
+      console.log("inside backDoor.watch function");
       if (err) exit ();
         soundAlarm();
-	console.log("door open");
       });
     },
     armedWithDelay: function() {

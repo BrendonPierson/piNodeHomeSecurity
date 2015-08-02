@@ -12,28 +12,28 @@ var Gpio = require('onoff').Gpio,
 function soundAlarm(){
   buzzer.write(1);
   console.log("buzz On")
-};
+}
 
 function stopAlarm(){
   buzzer.write(0);
   console.log("buzz off")
-};
+}
 
 
 
 backDoor.watch(function(err, value){
   console.log("inside backDoor.watch function");
-  if (err) exit ();
-    soundAlarm();
+  if (err) exit();
+  soundAlarm();
   });
-};
+
 
 function armedWithDelay() {
   backDoor.watch(function(err, value){
   if (err) exit ();
   setTimeout(soundAlarm(), 10000);
   });
-};
+}
 
 function exit() {
   buzzer.unexport();
@@ -43,16 +43,6 @@ function exit() {
   led.unexport();
   process.exit();
 }
-
-
-setTimeout(soundAlarm(), 2000);
-setTimeout(stopAlarm(), 2000);
-    
-armedNoDelay();
- 
-
-
-
 
 
 

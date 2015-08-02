@@ -19,9 +19,9 @@ function stopAlarm(){
   console.log("buzz off")
 };
 
-function armedNoDelay(){
-  console.log("armedNoDelay function has fired");
-  backDoor.watch(function(err, value){
+
+
+backDoor.watch(function(err, value){
   console.log("inside backDoor.watch function");
   if (err) exit ();
     soundAlarm();

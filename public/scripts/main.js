@@ -3,7 +3,7 @@ $('button').on('click', function() {
   // /armedhere which should trigger watch function on 
   // the reed switches with no alarm delay
   $('#armedhome').text('Arming, no Delay');
-  $.get('http://192.168.8.100/armedhere', function(data) {
+  $.get('http://localhost:8088/trigger', function(data) {
     $('button').text('Armed No Delay');
   });
 });

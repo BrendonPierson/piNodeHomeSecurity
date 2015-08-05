@@ -1,50 +1,65 @@
 var GPIO = function(){
 
   var Gpio = require('onoff').Gpio,
-      backDoor = new Gpio(23, 'in', 'both'), //blue
-      pir = new Gpio(16, 'in', 'both'), //orange
-      buzzer = new Gpio(25, 'out'), //purple
-      button = new Gpio(12, 'in', 'both'), //white
-      led = new Gpio(17, 'out'); //black
+    buzzer = new Gpio(17, 'out'),
+    button = new Gpio(18, 'in', 'both'),
+    door = new Gpio(21, 'in', 'both');
+
+  function exit() {
+    buzzer.unexport();
+    button.unexport();
+    door.unexport();
+    process.exit();
+  }
       
   return {
-    soundAlarm: function(){
-      buzzer.write(1);
-      console.log("buzz On")
+    buttonTest: function() {
+      button.watch(
+        function(err, value) {
+          if (err) exit();
+          buzzer.writeSync(value);
+        }
+      );
     },
-    stopAlarm: function(){
-      buzzer.write(0);
-      console.log("buzz off")
+    linkTest: function(){
+      console.log("GPIO module is correctly loaded");
     },
-    armedNoDelay: function(){
-	    console.log("armedNoDelay function has fired");
-      backDoor.watch(function(err, value){
-      console.log("inside backDoor.watch function");
-      if (err) exit ();
-        soundAlarm();
+    armedNoDelay: function() {
+      console.log("armed no delay function fired");
+      door.watch(function(err, value) {
+        if(err) exit();
+        console.log(value);
+        if (value === 0) {
+          buzzer.writeSync(1);
+        } else {
+          buzzer.writeSync(0);
+        }
+      });
+    }, 
+    armedWithDelay: function(){
+      console.log("armed with delay function fired");
+      door.watch(function(err, value){
+        if(err) exit();
+        console.log(value);
+        setTimeout(function(){
+          if (value === 0) {
+          buzzer.writeSync(1);
+          } else {
+            buzzer.writeSync(0);
+          }
+        },10000);
       });
     },
-    armedWithDelay: function() {
-      backDoor.watch(function(err, value){
-      if (err) exit ();
-      setTimeout(soundAlarm(), 10000);
-      });
+    disarm: function(){
+      console.log("disarm function fired");
+      door.unwatch();
+      buzzer.writeSync(0);
     },
-    exit: function() {
-      buzzer.unexport();
-      button.unexport();
-      backDoor.unexport();
-      pir.unexport();
-      led.unexport();
-      process.exit();
-    },
-  }
+    exit: function () {
+      console.log("exited cleanly with the exit function");
+      exit();
+    }
+  };
 };
-
-
-
- 
-
-
 
 module.exports = GPIO();

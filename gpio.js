@@ -31,10 +31,9 @@ var GPIO = function(){
         console.log(value);
         if (value === 0) {
           buzzer.writeSync(1);
-        } else {
-          buzzer.writeSync(0);
-        }
-      });
+        } 
+      }
+      );
     }, 
     armedWithDelay: function(){
       console.log("armed with delay function fired");

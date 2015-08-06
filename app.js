@@ -46,7 +46,7 @@ app.get('/', function(req, res) {
     });
 });
 
-//serve the static files
+//serve the static files (css, client js)
 app.use("/public", express.static(__dirname + '/public'));
 
 //start listening on the port
@@ -54,7 +54,7 @@ var server = app.listen(process.env.PORT || 4730, function(){
   console.log("Express server listening on port %s", server.address().port);
 });
 
-//process.on('SIGINT', GPIO.exit());
+
 
 
 

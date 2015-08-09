@@ -2,6 +2,18 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var GPIO = require('./gpio');
+var Firebase = require("firebase");
+var Handlebars = require('handlebars');
+
+var fbRef = new Firebase('https://securepenning.firebaseio.com/');
+
+
+
+
+
+
+
+
 
 //Arming Routes
 app.get('/armedNoDelay', function(req, res) {

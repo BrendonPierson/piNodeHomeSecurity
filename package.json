@@ -17,6 +17,8 @@
   "author": "Brendon Pierson",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.4.5",
+    "angularfire": "^1.1.2",
     "express": "^4.13.1",
     "onoff": "^1.0.2"
   }

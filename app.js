@@ -70,15 +70,15 @@ ref.on("value", function(snapshot){
 //     });
 // });
 
-// //serve the static files
-// app.use("/public", express.static(__dirname + '/public'));
+//serve the static files
+app.use("/public", express.static(__dirname + '/public'));
 
-// //start listening on the port
-// var server = app.listen(process.env.PORT || 4730, function(){
-//   console.log("Express server listening on port %s", server.address().port);
-// });
+//start listening on the port
+var server = app.listen(process.env.PORT || 4730, function(){
+  console.log("Express server listening on port %s", server.address().port);
+});
 
-// //process.on('SIGINT', GPIO.exit());
+//process.on('SIGINT', GPIO.exit());
 
 
 

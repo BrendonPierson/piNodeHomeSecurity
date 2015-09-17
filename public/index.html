@@ -1,35 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="SecurityApp">
 <head>
 	<meta charset="utf-8">
 	<title>TEMPLATE</title>
 	<link rel="stylesheet" type="text/css" href="/public/styles/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/public/styles/style.css">
+  <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
+<!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+	<!-- <link rel="stylesheet" type="text/css" href="/public/styles/style.css"> -->
 </head>
-<body>
-	<div id="main-wrapper">
+<body ng-cloak>
+  <div ng-controller="HomeCtrl">
+    <md-content>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <md-button class="md-icon-button" aria-label="Settings">
+            <!-- <i class="material-icons">face</i> -->
+          </md-button>
+          <h2>
+            <span>Home Security</span>
+          </h2>
+          <span flex></span>
+          <md-button class="md-icon-button" aria-label="Favorite">
+            <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="More">
+            <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
+          </md-button>
+        </div>
+      </md-toolbar>
+    </md-content>
+
+
     <div id="backdoor" class="box">
       <h1>
-      Back Door
+      Backdoor
+      {{ home.backDoor }}
       </h1>
     </div>
     <div id="frontdoor" class="box">
       <h1>
-        Front Door
+      Frontdoor
+        {{ home.frontDoor }}
       </h1>
     </div>
     <div id="motion" class="box">
       <h1>
-        Motion
+        motion
+        {{ home.motion }}
       </h1>
     </div>
     <div id="armed" class="box">
-      <a href="/public/armedNoDelay.html"><button id="armedhome" type="button">Arm Here</button></a>
-      <a href="/public/armedWithDelay.html"><button id="armedaway" type="button">Arm Away</button></a>
+      alarm
+      {{ home.alarmSystem }}
     </div>
-	</div>
+    <div>
+      siren
+      {{ home.siren }}
+    </div>
 
-	<!--scripts uncomment if needed-->
-	<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="/public/scripts/main.js"></script>
+  </div>
+
+
+<!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
+
+    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+    <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
+
+  <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
+  <script src="/public/scripts/app.js"></script>
+	<script src="/public/scripts/controllers/home-controller.js"></script>
 </body>
+
+
+
+
+
+
+
+
+

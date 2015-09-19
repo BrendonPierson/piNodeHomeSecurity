@@ -5,13 +5,14 @@
 	<title>TEMPLATE</title>
 	<link rel="stylesheet" type="text/css" href="/public/styles/normalize.css">
   <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
-<!--   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"> -->
+  <link href='https://fonts.googleapis.com/css?family=Playfair+Display+SC' rel='stylesheet' type='text/css'>
+
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
 	<!-- <link rel="stylesheet" type="text/css" href="/public/styles/style.css"> -->
 </head>
-<body ng-cloak>
+<body ng-cloak style="font-family: 'Playfair Display SC', serif;">
   <div ng-controller="HomeCtrl">
+    <!-- Nav Bar -->
     <md-content>
       <md-toolbar>
         <div class="md-toolbar-tools">
@@ -28,49 +29,87 @@
           <md-button class="md-icon-button" aria-label="More">
             <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
           </md-button>
+          <div>
+          <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
+            Alarm System: {{ home.alarmSystem }}
+          </md-switch>
+        </div>
         </div>
       </md-toolbar>
     </md-content>
+      <div layout layout-margin layout-margin>
+        <div flex="20"layout layout-align="center center">
+          <span class="md-title">Arming Delay</span>
+        </div>
+        <md-slider flex md-discrete ng-model="home.armDelay" step="5" min="0" max="60" aria-label="rating">
+        </md-slider>
+      </div>
+      <div layout>
+        <div flex="20"layout layout-margin layout-align="center center">
+          <span class="md-title">Enter Delay</span>
+        </div>
+        <md-slider flex md-discrete ng-model="home.enterDelay" step="5" min="0" max="30" aria-label="rating">
+        </md-slider>
+      </div>
+    <div layout="row" layout-sm="column">
+      <md-whiteframe flex="40" class="md-whiteframe-z1" style="background: rgb(255, 64, 129);;" layout="column" layout-align="space-around center">
+        <div>
+          <h1 class="md-display-2">Current Status</h1>
+        </div>
+        <div id="armed" class="box">
+         <h3> Alarm:
+          {{ home.alarmSystem }}
+          </h3>
+        </div>
+        <div id="backdoor" class="box">
+          <h3>
+          Backdoor:
+          {{ home.backDoor }}
+          </h3>
+        </div>
+        <div id="frontdoor" class="box">
+          <h3>
+          Frontdoor:
+            {{ home.frontDoor }}
+          </h3>
+        </div>
+        <div>
+          <h3>
+            Siren:
+            {{ home.siren }}
+          </h3>
+        </div>
+        <div id="motion" class="box">
+          <h3>
+            {{ home.motion }}
+          </h3>
+        </div>
+        
+        
+      </md-whiteframe>
+
+   
+      <div flex layout layout-align="center center">
+        <h1>Video placeholder</h1>
+      </div>
+
+    </div> <!-- End Row -->
 
 
-    <div id="backdoor" class="box">
-      <h1>
-      Backdoor
-      {{ home.backDoor }}
-      </h1>
-    </div>
-    <div id="frontdoor" class="box">
-      <h1>
-      Frontdoor
-        {{ home.frontDoor }}
-      </h1>
-    </div>
-    <div id="motion" class="box">
-      <h1>
-        motion
-        {{ home.motion }}
-      </h1>
-    </div>
-    <div id="armed" class="box">
-      alarm
-      {{ home.alarmSystem }}
-    </div>
-    <div>
-      siren
-      {{ home.siren }}
-    </div>
-
-  </div>
 
 
-<!-- Angular Material Dependencies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
+  </div> <!-- End Controller Div -->
 
-    <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
-    <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.js"></script>
+
+  <!-- Angular Material Javascript using GitCDN to load directly from `bower-material/master` -->
+  <script src="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.js"></script>
 
   <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>

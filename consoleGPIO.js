@@ -10,6 +10,10 @@ var GPIO = function(){
     linkTest: function(){
       console.log("GPIO module is correctly loaded");
     },
+    arm: function(armDelay, enterDelay){
+      console.log("armDelay", armDelay);
+      console.log("enterDelay", enterDelay);
+    },
     armedNoDelay: function() {
       console.log("armed no delay function fired");
     }, 

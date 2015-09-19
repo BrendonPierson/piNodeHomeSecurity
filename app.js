@@ -10,16 +10,10 @@ ref.on("value", function(snapshot){
   var data = snapshot.val();
   console.log("fb data", data);
 
-  switch(data.alarmSystem){
-    case "armedNoDelay":
-      GPIO.armedNoDelay();
-      break;
-    case "armedWithDelay":
-      GPIO.armedWithDelay();
-      break;
-    case "disarmed":
-      GPIO.disarm();
-      break;
+
+  if(data.alarmSystem === "Armed"){
+    GPIO.arm(data.armDelay, data.enterDelay);
+    console.log("armed with delay settings: ", data.armDelay, data.enterDelay);
   }
 
 });

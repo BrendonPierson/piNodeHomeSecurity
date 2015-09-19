@@ -16,6 +16,10 @@ ref.on("value", function(snapshot){
     console.log("armed with delay settings: ", data.armDelay, data.enterDelay);
   }
 
+  if(data.alarmSystem !== "Armed") {
+    GPIO.disarm;
+  }
+
 });
 
 

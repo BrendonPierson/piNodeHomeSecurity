@@ -22,6 +22,21 @@ var GPIO = function(){
         }
       );
     },
+    arm: function(armDelay, enterDelay){
+      armed = true;
+      setTimeout(door.watch(function(err, value){
+        if(err) exit();
+        console.log(value);
+        if (value === 0) {
+          setTimeout(function(){
+            if(armed){
+              buzzer.writeSync(1);
+              // Write to fb siren on
+            }
+          }, enterDelay * 1000);
+        } 
+      }), armDelay * 1000)
+    },
     linkTest: function(){
       console.log("GPIO module is correctly loaded");
     },

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require('express'),
     app = express(),
     fs = require('fs'),
@@ -5,6 +6,36 @@ var express = require('express'),
     GPIO = require('./consoleGPIO');
     ref = new Firebase("https://securepenning.firebaseio.com/");
     // GPIO = require('./gpio');
+=======
+var express = require('express');
+var app = express();
+var fs = require('fs');
+var GPIO = require('./gpio');
+var Firebase = require("firebase");
+var Handlebars = require('handlebars');
+
+var fbRef = new Firebase('https://securepenning.firebaseio.com/');
+
+
+
+
+
+
+
+
+
+//Arming Routes
+app.get('/armedNoDelay', function(req, res) {
+  console.log("Armed no delay!");
+  GPIO.armedNoDelay();
+  res.type('text/html');
+  fs.readFile('public/armedNoDelay.html',
+    function (err, data) {
+      if (err) throw err;
+      res.send(data.toString());
+    });
+});
+>>>>>>> 416f79a8b7d23d6a449da838f5a6a220ff5c8781
 
 ref.on("value", function(snapshot){
   var data = snapshot.val();
@@ -22,6 +53,7 @@ ref.on("value", function(snapshot){
 
 });
 
+<<<<<<< HEAD
 
 
 
@@ -69,6 +101,9 @@ ref.on("value", function(snapshot){
 // });
 
 //serve the static files
+=======
+//serve the static files (css, client js)
+>>>>>>> 416f79a8b7d23d6a449da838f5a6a220ff5c8781
 app.use("/public", express.static(__dirname + '/public'));
 
 //start listening on the port
@@ -76,7 +111,7 @@ var server = app.listen(process.env.PORT || 4730, function(){
   console.log("Express server listening on port %s", server.address().port);
 });
 
-//process.on('SIGINT', GPIO.exit());
+
 
 
 

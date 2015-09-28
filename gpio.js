@@ -14,56 +14,23 @@ var GPIO = function(){
   }
       
   return {
-    buttonTest: function() {
-      button.watch(
-        function(err, value) {
-          if (err) exit();
-          buzzer.writeSync(value);
-        }
-      );
-    },
     arm: function(armDelay, enterDelay){
       armed = true;
       setTimeout(door.watch(function(err, value){
         if(err) exit();
         console.log(value);
         if (value === 0) {
+          console.log("Inside value===0 if statement");
           setTimeout(function(){
+            console.log("inside timeout function");
             if(armed){
+              console.log("inside armed if statement");
               buzzer.writeSync(1);
               // Write to fb siren on
             }
           }, enterDelay * 1000);
         } 
       }), armDelay * 1000)
-    },
-    linkTest: function(){
-      console.log("GPIO module is correctly loaded");
-    },
-    armedNoDelay: function() {
-      console.log("armed no delay function fired");
-      door.watch(function(err, value) {
-        if(err) exit();
-        console.log(value);
-        if (value === 0) {
-          buzzer.writeSync(1);
-        } 
-      }
-      );
-    }, 
-    armedWithDelay: function(){
-      armed = true;
-      console.log("armed with delay function fired");
-      door.watch(function(err, value){
-        if(err) exit();
-        console.log(value);
-        setTimeout(function(){
-          if (value === 0 && armed) {
-          buzzer.writeSync(1);
-          } 
-        }
-        ,10000);
-      });
     },
     disarm: function(){
       console.log("disarm function fired");

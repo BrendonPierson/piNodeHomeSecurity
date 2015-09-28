@@ -2,9 +2,9 @@ var express = require('express'),
     app = express(),
     fs = require('fs'),
     Firebase = require("firebase"),
-    GPIO = require('./consoleGPIO');
+   // GPIO = require('./consoleGPIO');
     ref = new Firebase("https://securepenning.firebaseio.com/");
-    // GPIO = require('./gpio');
+    GPIO = require('./gpio');
 
 ref.on("value", function(snapshot){
   var data = snapshot.val();
@@ -17,7 +17,7 @@ ref.on("value", function(snapshot){
   }
 
   if(data.alarmSystem !== "Armed") {
-    GPIO.disarm;
+    GPIO.disarm();
   }
 
 });
@@ -68,9 +68,7 @@ ref.on("value", function(snapshot){
 // });
 
 //serve the static files
-=======
 //serve the static files (css, client js)
->>>>>>> 416f79a8b7d23d6a449da838f5a6a220ff5c8781
 app.use("/public", express.static(__dirname + '/public'));
 
 //start listening on the port

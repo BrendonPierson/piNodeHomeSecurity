@@ -4,6 +4,9 @@ var GPIO = function(){
     buzzer = new Gpio(17, 'out'),
     button = new Gpio(18, 'in', 'both'),
     door = new Gpio(21, 'in', 'both'),
+    Firebase = require("firebase"),
+    ref = new Firebase("https://securepenning.firebaseio.com/"),
+    doorVal;
     armed = false;
 
   function exit() {
@@ -12,21 +15,33 @@ var GPIO = function(){
     door.unexport();
     process.exit();
   }
+
+  door.watch(function(err, value){
+    if(err) exit();
+
+    if(value === 1){
+      ref.child('backDoor').set('Closed');
+      doorVal = 1;
+    } else {
+      ref.child('backdoor').set('Open');
+      doorVal = 0;
+    }
+  });
       
   return {
     arm: function(armDelay, enterDelay){
       armed = true;
-      setTimeout(door.watch(function(err, value){
-        if(err) exit();
-        console.log(value);
-        if (value === 0) {
-          console.log("Inside value===0 if statement");
+      // Arm delay 
+      setTimeout(function(){
+        if (doorVal === 0) {
+          // Enter delay
           setTimeout(function(){
-            console.log("inside timeout function");
             if(armed){
-              console.log("inside armed if statement");
               buzzer.writeSync(1);
-              // Write to fb siren on
+              ref.child('siren').set('On');
+            }
+            if (!armed) {
+              break;
             }
           }, enterDelay * 1000);
         } 
@@ -34,9 +49,9 @@ var GPIO = function(){
     },
     disarm: function(){
       console.log("disarm function fired");
-      door.unwatch();
       armed = false;
       buzzer.writeSync(0);
+      ref.child('siren').set('Off');
     },
     exit: function () {
       console.log("exited cleanly with the exit function");

@@ -33,7 +33,6 @@ var server = app.listen(process.env.PORT || 4730, function(){
   console.log("Express server listening on port %s", server.address().port);
 });
 
-process.on('SIGINT', GPIO.exit());
 
 
 

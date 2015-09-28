@@ -23,11 +23,13 @@ var GPIO = function(){
       ref.child('backDoor').set('Closed');
       doorVal = 1;
     } else {
-      ref.child('backdoor').set('Open');
+      ref.child('backDoor').set('Open');
       doorVal = 0;
     }
   });
       
+  process.on('SIGINT',exit);
+
   return {
     arm: function(armDelay, enterDelay){
       armed = true;
@@ -40,12 +42,9 @@ var GPIO = function(){
               buzzer.writeSync(1);
               ref.child('siren').set('On');
             }
-            if (!armed) {
-              break;
-            }
           }, enterDelay * 1000);
         } 
-      }), armDelay * 1000)
+      }, armDelay * 1000)
     },
     disarm: function(){
       console.log("disarm function fired");

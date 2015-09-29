@@ -7,3 +7,6 @@ body {
   max-width: none;
 }
 
+#status {
+  background: rgba(255, 64, 129, 1);
+}

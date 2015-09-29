@@ -45,6 +45,17 @@ app.controller("HomeCtrl", [
         });
     };
 
+      ref.authWithPassword({
+        email : "BrendonPierson@gmail.com",
+        password : "h0meSlugCastle*"
+      }, function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+        }
+      });
+
 
 
 

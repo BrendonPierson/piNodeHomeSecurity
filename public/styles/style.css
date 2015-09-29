@@ -1,0 +1,9 @@
+body {
+  font-family: 'Playfair Display SC', serif;
+}
+
+#sideNav {
+  width: 100%;
+  max-width: none;
+}
+

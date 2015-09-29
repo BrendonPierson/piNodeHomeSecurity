@@ -1,5 +1,11 @@
-app.controller("HomeCtrl", ["$scope", "$firebaseObject", 
-  function($scope, $firebaseObject){
+app.controller("HomeCtrl", [
+  "$scope", 
+  "$firebaseObject", 
+  "$timeout", 
+  "$mdSidenav", 
+  "$mdUtil", 
+  "$log",
+  function($scope, $firebaseObject, $timeout, $mdSidenav, $mdUtil, $log){
     var ref = new Firebase("https://securepenning.firebaseio.com/");
     $scope.home = $firebaseObject(ref);
 
@@ -12,7 +18,34 @@ app.controller("HomeCtrl", ["$scope", "$firebaseObject",
         console.error(err);
       });
 
-      $scope.home.$bindTo($scope, "home");
+    $scope.home.$bindTo($scope, "home");
+
+    // Side nav logic
+    $scope.toggleLeft = buildToggler('left');
+    $scope.toggleRight = buildToggler('right');
+    /**
+     * Build handler to open/close a SideNav; when animation finishes
+     * report completion in console
+     */
+    function buildToggler(navID) {
+      var debounceFn =  $mdUtil.debounce(function(){
+            $mdSidenav(navID)
+              .toggle()
+              .then(function () {
+                $log.debug("toggle " + navID + " is done");
+              });
+          },200);
+      return debounceFn;
+    }
+
+    $scope.close = function () {
+      $mdSidenav('left').close()
+        .then(function () {
+          $log.debug("close LEFT is done");
+        });
+    };
+
+
 
 
       // ref.createUser({

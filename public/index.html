@@ -30,13 +30,15 @@
             <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
           </md-button>
           <div>
-          <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
-            Alarm System: {{ home.alarmSystem }}
-          </md-switch>
-          <md-switch ng-model="home.armedWithMotion"  class="md-warn">
-            Motion Detection: {{ home.armedWithMotion }}
-          </md-switch>
-        </div>
+            <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
+              Alarm System: {{ home.alarmSystem }}
+            </md-switch>
+          </div>
+          <div>
+            <md-switch ng-model="home.armedWithMotion" class="md-warn">
+              Alarm System: {{ home.armedWithMotion }}
+            </md-switch>
+          </div>
         </div>
       </md-toolbar>
     </md-content>

@@ -12,7 +12,10 @@ ref.on("value", function(snapshot){
   console.log("fb data", data);
 
   // Arm the system
-  if(data.alarmSystem === "Armed"){
+  if(data.alarmSystem === "Armed" && data.armedWithMotion === true){
+    GPIO.armMotion(data.armDelay, data.enterDelay);
+    console.log("armed with motion and delay settings: ", data.armDelay, data.enterDelay);
+  } else if(data.alarmSystem === "Armed"){
     GPIO.arm(data.armDelay, data.enterDelay);
     console.log("armed with delay settings: ", data.armDelay, data.enterDelay);
   }

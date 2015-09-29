@@ -29,9 +29,8 @@ frontDoor.watch(function(err, value){
 });
     
 function exit() {
-  buzzer.unexport();
-  button.unexport();
   frontDoor.unexport();
+  motion.unexport();
   process.exit();
 }
 

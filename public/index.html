@@ -22,13 +22,6 @@
           <h2>
             <span>Home Security</span>
           </h2>
-          <span flex></span>
-          <md-button class="md-icon-button" aria-label="Favorite">
-            <md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"></md-icon>
-          </md-button>
-          <md-button class="md-icon-button" aria-label="More">
-            <md-icon md-svg-icon="img/icons/more_vert.svg"></md-icon>
-          </md-button>
           <div>
             <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
               Alarm System: {{ home.alarmSystem }}
@@ -36,13 +29,13 @@
           </div>
           <div>
             <md-switch ng-model="home.armedWithMotion" class="md-warn">
-              Alarm System: {{ home.armedWithMotion }}
+              Detect Motion: {{ home.armedWithMotion }}
             </md-switch>
           </div>
         </div>
       </md-toolbar>
     </md-content>
-      <div layout layout-margin layout-margin>
+      <div layout layout-margin>
         <div flex="20"layout layout-align="center center">
           <span class="md-title">Arming Delay</span>
         </div>

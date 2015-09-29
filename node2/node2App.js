@@ -14,6 +14,7 @@ motion.watch(function(err, value){
       ref.child('motionVal').set(1);
     } else {
       ref.child('motionVal').set(0);
+    }
 });
 
 

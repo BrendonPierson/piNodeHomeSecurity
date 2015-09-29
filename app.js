@@ -29,7 +29,7 @@ ref.on("value", function(snapshot){
 app.use("/public", express.static(__dirname + '/public'));
 
 //start listening on the port
-var server = app.listen(process.env.PORT || 4730, function(){
+var server = app.listen(process.env.PORT || 80, function(){
   console.log("Express server listening on port %s", server.address().port);
 });
 

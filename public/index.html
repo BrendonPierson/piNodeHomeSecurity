@@ -76,12 +76,12 @@
           <md-content layout-padding>
             <h1 hide-sm>Controls</h1> 
             <div>
-              <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
+              <md-switch ng-model="home.arm.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
                 <span class="md-title">Alarm System: <strong>{{ home.arm.alarmSystem }}</strong></span>
               </md-switch>
             </div>
             <div>
-              <md-switch ng-model="home.armedWithMotion" class="md-warn">
+              <md-switch ng-model="home.arm.armedWithMotion" class="md-warn">
                <span class="md-title"> Detect Motion: <strong>{{ home.arm.armedWithMotion }}</strong></span>
               </md-switch>
             </div>
@@ -92,7 +92,7 @@
               <div class="flex flex-25 layout layout-align-center-center">
                 <span class="md-title">Arming Delay</span>
               </div>
-              <md-slider min="0" max="60" ng-model="home.armDelay" aria-label="red" id="red-slider" class="ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
+              <md-slider min="0" max="60" ng-model="home.arm.armDelay" aria-label="red" id="red-slider" class="ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
                 <div class="md-slider-wrapper">
                   <div class="md-track-container">
                     <div class="md-track"></div>
@@ -111,7 +111,7 @@
                 </div>
               </md-slider>
               <div class="flex flex-10 layout layout-align-center-center">
-                <input max="60" type="number" ng-model="home.armDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
+                <input max="60" type="number" ng-model="home.arm.armDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
               </div>
             </div>
 

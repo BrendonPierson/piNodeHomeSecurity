@@ -56,6 +56,7 @@ var GPIO = function(){
   return {
 
     arm: function(armDelay, enterDelay){
+      console.log("arm function running");
       armed = true;
       // Arm delay 
       setTimeout(function(){

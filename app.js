@@ -14,7 +14,7 @@ ref.on("value", function(snapshot){
   console.log("time of fb change", new Date().toLocaleTimeString());
 
   // Arm the system
-  if(data.alarmSystem === "Armed" && data.armedWithMotion === true){
+  if(data.alarmSystem === "Armed" && data.armedWithMotion){
     GPIO.armMotion(data.armDelay, data.enterDelay);
     console.log("armed with motion and delay settings: ", data.armDelay, data.enterDelay);
   } else if(data.alarmSystem === "Armed"){

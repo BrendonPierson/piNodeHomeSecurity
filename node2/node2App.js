@@ -5,9 +5,13 @@ var Gpio = require('onoff').Gpio,
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
-tempSensor.readDevice('021500cf61ff').then(function(data){
-  console.log("temp data", data);
-});
+
+setInterval(function(){
+  tempSensor.readDevice('021500cf61ff').then(function(data){
+    console.log("temp data", data.value);
+    var temp = data.value * (9/5) + 32;
+    ref.child('sensors').child('temp').set(temp);
+}, 600000);
 
 
 // Only track motion when it is selected

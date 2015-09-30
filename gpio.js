@@ -2,6 +2,7 @@ var GPIO = function(){
 
   var Gpio = require('onoff').Gpio,
     buzzer = new Gpio(17, 'out'),
+    led = new Gpio(26, 'out'),
     button = new Gpio(18, 'in', 'both'),
     door = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
@@ -56,10 +57,14 @@ var GPIO = function(){
   return {
 
     arm: function(armDelay, enterDelay){
+      var iv = setInterval(function(){
+        led.writeSync(led.readSync() === 0 ? 1 : 0)
+      }, 1000);
       console.log("arm function running");
       armed = true;
       // Arm delay 
       setTimeout(function(){
+      led.writeSync(1);
         ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0) {
           console.log("frontDoor or backDoor is open");
@@ -76,9 +81,13 @@ var GPIO = function(){
     },
 
     armMotion: function(armDelay, enterDelay){
+      var iv = setInterval(function(){
+        led.writeSync(led.readSync() === 0 ? 1 : 0)
+      }, 500);
       armed = true;
       // Arm delay 
       setTimeout(function(){
+        led.writeSync(1);
         ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0 || motionVal === 1) {
           // Enter delay

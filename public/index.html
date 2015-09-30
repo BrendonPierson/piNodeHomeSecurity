@@ -152,18 +152,18 @@
             <div>
               <h1>Current Status</h1>
             </div>
-            <div id="armed" class="box">
+            <div>
              <h3> Alarm:
               {{ home.arm.alarmSystem }}
               </h3>
             </div>
-            <div id="backdoor" class="box">
+            <div>
               <h3>
               Backdoor:
               {{ home.sensors.backDoor }}
               </h3>
             </div>
-            <div id="frontdoor" class="box">
+            <div>
               <h3>
               Frontdoor:
                 {{ home.sensors.frontDoor }}
@@ -175,9 +175,15 @@
                 {{ home.sensors.siren }}
               </h3>
             </div>
-            <div id="motion" class="box">
+            <div>
               <h3>
                 {{ home.sensors.motion }}
+              </h3>
+            </div>
+            <div>
+              <h3>
+                Temperature: 
+                {{ home.sensors.temp }}F
               </h3>
             </div>
           </md-whiteframe>

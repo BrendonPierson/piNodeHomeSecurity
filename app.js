@@ -11,6 +11,7 @@ var express = require('express'),
 ref.on("value", function(snapshot){
   var data = snapshot.val();
   console.log("fb data", data);
+  console.log("time of fb change", new Date().toLocaleTimeString());
 
   // Arm the system
   if(data.alarmSystem === "Armed" && data.armedWithMotion === true){
@@ -19,10 +20,11 @@ ref.on("value", function(snapshot){
   } else if(data.alarmSystem === "Armed"){
     GPIO.arm(data.armDelay, data.enterDelay);
     console.log("armed with delay settings: ", data.armDelay, data.enterDelay);
-  }
+  } 
 
   // Disarm the system
   if(data.alarmSystem !== "Armed") {
+    console.log("disarmed at: ", new Date().toLocaleTimeString());
     GPIO.disarm();
   }
 

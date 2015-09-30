@@ -28,6 +28,7 @@ var GPIO = function(){
   button.watch(function(err, value){
     if(err) exit();
     if(value === 0){
+      console.log("disarm push button pressed at: ", new Date().toLocaleTimeString());
       armed = false;
       buzzer.writeSync(0);
       ref.child('siren').set('Off');
@@ -42,9 +43,11 @@ var GPIO = function(){
     if(value === 1){
       ref.child('backDoor').set('Closed');
       backDoorVal = 1;
+      console.log("Backdoor closed at: ", new Date().toLocaleTimeString());
     } else {
       ref.child('backDoor').set('Open');
       backDoorVal = 0;
+      console.log("backdoor open at: ", new Date().toLocaleTimeString());
     }
   });
       
@@ -74,7 +77,7 @@ var GPIO = function(){
       setTimeout(function(){
         if (frontDoorVal === "Open" || backDoorVal === 0 || motionVal === 1) {
           // Enter delay
-console.log("alarm tripped");
+          console.log("alarm tripped");
           setTimeout(function(){
             if(armed){
               buzzer.writeSync(1);

@@ -8,6 +8,7 @@ var Gpio = require('onoff').Gpio,
 motion.watch(function(err, value){
   if(err) exit();
     if(value === 1) {
+      console.log("Motion detected at: ", new Date().toLocaleTimeString());
       var options = { timeZone: 'UTC', timeZoneName: 'short' };
       var time = new Date().toLocaleTimeString('en-US', options);
       ref.child('motion').set('Motion Detected at: '+ time );
@@ -23,8 +24,10 @@ frontDoor.watch(function(err, value){
 
   if(value === 1){
     ref.child('frontDoor').set('Closed');
+    console.log("Front door closed at: ", new Date().toLocaleTimeString());
   } else {
     ref.child('frontDoor').set('Open');
+    console.log("Front door open at: ", new Date().toLocaleTimeString());
   }
 });
     

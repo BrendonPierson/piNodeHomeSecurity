@@ -17,6 +17,7 @@ var GPIO = function(){
     buzzer.unexport();
     button.unexport();
     door.unexport();
+    led.unexport();
     process.exit();
   }
 
@@ -107,6 +108,7 @@ var GPIO = function(){
       console.log("disarm function fired");
       armed = false;
       buzzer.writeSync(0);
+      led.writeSync(0);
       ref.child('sensors').child('siren').set('Off');
     },
 

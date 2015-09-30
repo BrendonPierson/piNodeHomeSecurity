@@ -2,14 +2,14 @@
 <html lang="en" ng-app="SecurityApp">
 <head>
 	<meta charset="utf-8">
-	<title>TEMPLATE</title>
-	<link rel="stylesheet" type="text/css" href="../public/styles/normalize.css">
+	<title>Home Security</title>
+	<link rel="stylesheet" type="text/css" href="/styles/normalize.css">
   <link rel="stylesheet" href="https://gitcdn.xyz/repo/angular/bower-material/master/angular-material.css">
   <link href='https://fonts.googleapis.com/css?family=Playfair+Display+SC' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
-	<link rel="stylesheet" type="text/css" href="../public/styles/style.css">
+	<link rel="stylesheet" type="text/css" href="/styles/style.css">
 </head>
 
 <body ng-cloak>
@@ -77,12 +77,12 @@
             <h1 hide-sm>Controls</h1> 
             <div>
               <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
-                <span class="md-title">Alarm System: <strong>{{ home.alarmSystem }}</strong></span>
+                <span class="md-title">Alarm System: <strong>{{ home.arm.alarmSystem }}</strong></span>
               </md-switch>
             </div>
             <div>
               <md-switch ng-model="home.armedWithMotion" class="md-warn">
-               <span class="md-title"> Detect Motion: <strong>{{ home.armedWithMotion }}</strong></span>
+               <span class="md-title"> Detect Motion: <strong>{{ home.arm.armedWithMotion }}</strong></span>
               </md-switch>
             </div>
 
@@ -119,7 +119,7 @@
               <div class="flex flex-25 layout layout-align-center-center">
                 <span class="md-title">Enter Delay</span>
               </div>
-              <md-slider min="0" max="30" ng-model="home.enterDelay" aria-label="red" id="red-slider" class="md-primary ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
+              <md-slider min="0" max="30" ng-model="home.arm.enterDelay" aria-label="red" id="red-slider" class="md-primary ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
                 <div class="md-slider-wrapper">
                   <div class="md-track-container">
                     <div class="md-track"></div>
@@ -138,7 +138,7 @@
                 </div>
               </md-slider>
               <div class="flex flex-10 layout layout-align-center-center">
-                <input max="30" type="number" ng-model="home.enterDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
+                <input max="30" type="number" ng-model="home.arm.enterDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
               </div>
             </div>
           </md-content>
@@ -154,30 +154,30 @@
             </div>
             <div id="armed" class="box">
              <h3> Alarm:
-              {{ home.alarmSystem }}
+              {{ home.arm.alarmSystem }}
               </h3>
             </div>
             <div id="backdoor" class="box">
               <h3>
               Backdoor:
-              {{ home.backDoor }}
+              {{ home.sensors.backDoor }}
               </h3>
             </div>
             <div id="frontdoor" class="box">
               <h3>
               Frontdoor:
-                {{ home.frontDoor }}
+                {{ home.sensors.frontDoor }}
               </h3>
             </div>
             <div>
               <h3>
                 Siren:
-                {{ home.siren }}
+                {{ home.sensors.siren }}
               </h3>
             </div>
             <div id="motion" class="box">
               <h3>
-                {{ home.motion }}
+                {{ home.sensors.motion }}
               </h3>
             </div>
           </md-whiteframe>
@@ -186,6 +186,7 @@
         </md-content>
       </section>
     </div>
+
   </div> <!-- End Controller Div -->
 
 
@@ -200,9 +201,9 @@
 
   <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
-  <script src="../public/scripts/app.js"></script>
-  <script src="../public/scripts/controllers/home-controller.js"></script>
-	<script src="../public/scripts/factories/Auth.js"></script>
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/controllers/home-controller.js"></script>
+	<script src="/scripts/factories/Auth.js"></script>
 </body>
 
 </html>

@@ -19,7 +19,7 @@ var GPIO = function(){
     process.exit();
   }
 
-  ref.on('value',function(snapshot){
+  ref.child('sensors').on('value',function(snapshot){
     var data = snapshot.val();
     motionVal = data.motionVal;
     frontDoorVal = data.frontDoor;
@@ -31,9 +31,9 @@ var GPIO = function(){
       console.log("disarm push button pressed at: ", new Date().toLocaleTimeString());
       armed = false;
       buzzer.writeSync(0);
-      ref.child('siren').set('Off');
-      ref.child('alarmSystem').set('Disarmed');
-      ref.child('armNoDelayMotion').set('false');
+      ref.child('sensors').child('siren').set('Off');
+      ref.child('arm').child('alarmSystem').set('Disarmed');
+      ref.child('arm').child('armNoDelayMotion').set('false');
     }
   });
 
@@ -41,11 +41,11 @@ var GPIO = function(){
     if(err) exit();
 
     if(value === 1){
-      ref.child('backDoor').set('Closed');
+      ref.child('sensors').child('backDoor').set('Closed');
       backDoorVal = 1;
       console.log("Backdoor closed at: ", new Date().toLocaleTimeString());
     } else {
-      ref.child('backDoor').set('Open');
+      ref.child('sensors').child('backDoor').set('Open');
       backDoorVal = 0;
       console.log("backdoor open at: ", new Date().toLocaleTimeString());
     }
@@ -64,7 +64,7 @@ var GPIO = function(){
           setTimeout(function(){
             if(armed){
               buzzer.writeSync(1);
-              ref.child('siren').set('On');
+              ref.child('sensors').child('siren').set('On');
             }
           }, enterDelay * 1000);
         } 
@@ -81,7 +81,7 @@ var GPIO = function(){
           setTimeout(function(){
             if(armed){
               buzzer.writeSync(1);
-              ref.child('siren').set('On');
+              ref.child('sensors').child('siren').set('On');
               console.log("armed delay siren should be on");
             }
           }, enterDelay * 1000);
@@ -93,7 +93,7 @@ var GPIO = function(){
       console.log("disarm function fired");
       armed = false;
       buzzer.writeSync(0);
-      ref.child('siren').set('Off');
+      ref.child('sensors').child('siren').set('Off');
     },
 
     exit: function () {

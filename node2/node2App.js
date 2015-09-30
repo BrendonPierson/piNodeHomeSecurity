@@ -11,6 +11,7 @@ setInterval(function(){
     console.log("temp data", data.value);
     var temp = data.value * (9/5) + 32;
     ref.child('sensors').child('temp').set(temp);
+  });
 }, 600000);
 
 

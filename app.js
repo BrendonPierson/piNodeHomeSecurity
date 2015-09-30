@@ -2,7 +2,6 @@ var express = require('express'),
     app = express(),
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/"),
-    setDelay = true,
     GPIO = require('./gpio');
     // Uncomment the line below if you want to test/ debug on a non-raspberry pi
     // GPIO = require('./consoleGPIO');

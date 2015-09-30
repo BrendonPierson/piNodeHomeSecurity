@@ -79,6 +79,7 @@ var GPIO = function(){
       armed = true;
       // Arm delay 
       setTimeout(function(){
+        ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0 || motionVal === 1) {
           // Enter delay
           console.log("alarm tripped");

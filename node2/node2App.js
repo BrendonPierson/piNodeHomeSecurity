@@ -1,9 +1,16 @@
 var Gpio = require('onoff').Gpio,
+    tempSensor = require('ds1820-temp'),
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
+tempSensor.readDevice('021500cf61ff').then(function(data){
+  console.log("temp data", data);
+});
+
+
+// Only track motion when it is selected
 ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
   data = snapshot.val();
   console.log("armed with motion fb", data);

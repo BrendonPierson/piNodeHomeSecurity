@@ -1,32 +1,22 @@
 app.controller("HomeCtrl", [
   "$scope", 
+  "Auth",
   "$firebaseObject", 
   "$timeout", 
   "$mdSidenav", 
   "$mdUtil", 
   "$log",
-  function($scope, $firebaseObject, $timeout, $mdSidenav, $mdUtil, $log){
+  function($scope, Auth, $firebaseObject, $timeout, $mdSidenav, $mdUtil, $log){
+    // Load data from firebase
     var ref = new Firebase("https://securepenning.firebaseio.com/");
+    
     $scope.home = $firebaseObject(ref);
-
-
-    $scope.home.$loaded()
-      .then(function() {
-        console.log($scope.home);
-      })
-      .catch(function(err) {
-        console.error(err);
-      });
 
     $scope.home.$bindTo($scope, "home");
 
     // Side nav logic
     $scope.toggleLeft = buildToggler('left');
     $scope.toggleRight = buildToggler('right');
-    /**
-     * Build handler to open/close a SideNav; when animation finishes
-     * report completion in console
-     */
     function buildToggler(navID) {
       var debounceFn =  $mdUtil.debounce(function(){
             $mdSidenav(navID)
@@ -37,7 +27,7 @@ app.controller("HomeCtrl", [
           },200);
       return debounceFn;
     }
-
+    // Close sideNav
     $scope.close = function () {
       $mdSidenav('left').close()
         .then(function () {
@@ -46,29 +36,22 @@ app.controller("HomeCtrl", [
     };
 
 
-//      ref.authWithPassword({
-//        email : "BrendonPierson@gmail.com",
-//        password : "h0meSlugCastle*"
-//      }, function(error, authData) {
-//        if (error) {
-//          console.log("Login Failed!", error);
-//        } else {
-//          console.log("Authenticated successfully with payload:", authData);
-//        }
-//      });
+    // Login Function
+    $scope.login = function(){
+      ref.authWithPassword({
+        email : $scope.email,
+        password : $scope.password
+      }, function(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+          $scoope.auth = authData;
+        }
+      });
+    }
+    // Sets auth again in case user refreshes page
+    $scope.auth = Auth.$getAuth();
 
-
-
-
-      // ref.createUser({
-      //   email    : "BrendonPierson@gmail.com",
-      //   password : "h0meSlugCastle*"
-      // }, function(error, userData) {
-      //   if (error) {
-      //     console.log("Error creating user:", error);
-      //   } else {
-      //     console.log("Successfully created user account with uid:", userData.uid);
-      //   }
-      // });
 
 }]);

@@ -61,15 +61,17 @@ var GPIO = function(){
       // Arm delay 
       setTimeout(function(){
         if (frontDoorVal === "Open" || backDoorVal === 0) {
+          console.log("frontDoor or backDoor is open");
           // Enter delay
           setTimeout(function(){
             if(armed){
+              console.log("buzzer should be sounding");
               buzzer.writeSync(1);
               ref.child('sensors').child('siren').set('On');
             }
           }, enterDelay * 1000);
         } 
-      }, armDelay * 1000)
+      }, armDelay * 1000);
     },
 
     armMotion: function(armDelay, enterDelay){
@@ -87,7 +89,7 @@ var GPIO = function(){
             }
           }, enterDelay * 1000);
         } 
-      }, armDelay * 1000)
+      }, armDelay * 1000);
     },
 
     disarm: function(){

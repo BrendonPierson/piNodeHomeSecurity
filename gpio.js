@@ -60,6 +60,7 @@ var GPIO = function(){
       armed = true;
       // Arm delay 
       setTimeout(function(){
+        ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0) {
           console.log("frontDoor or backDoor is open");
           // Enter delay

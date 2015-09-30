@@ -1,7 +1,8 @@
 var express = require('express'),
     app = express(),
     Firebase = require("firebase"),
-    ref = new Firebase("https://securepenning.firebaseio.com/arm"),
+    ref = new Firebase("https://securepenning.firebaseio.com/"),
+    setDelay = true,
     GPIO = require('./gpio');
     // Uncomment the line below if you want to test/ debug on a non-raspberry pi
     // GPIO = require('./consoleGPIO');
@@ -14,16 +15,16 @@ ref.on("value", function(snapshot){
   console.log("time of fb change", new Date().toLocaleTimeString());
 
   // Arm the system
-  if(data.alarmSystem === "Armed" && data.armedWithMotion){
-    GPIO.armMotion(data.armDelay, data.enterDelay);
-    console.log("armed with motion and delay settings: ", data.armDelay, data.enterDelay);
-  } else if(data.alarmSystem === "Armed"){
-    GPIO.arm(data.armDelay, data.enterDelay);
-    console.log("armed with delay settings: ", data.armDelay, data.enterDelay);
+  if(data.arm.alarmSystem === "Armed" && data.arm.armedWithMotion){
+    GPIO.armMotion(data.arm.armDelay, data.arm.enterDelay);
+    console.log("armed with motion and delay settings: ", data.arm.armDelay, data.arm.enterDelay);
+  } else if(data.arm.alarmSystem === "Armed"){
+    GPIO.arm(data.arm.armDelay, data.arm.enterDelay);
+    console.log("armed with delay settings: ", data.arm.armDelay, data.arm.enterDelay);
   } 
 
   // Disarm the system
-  if(data.alarmSystem !== "Armed") {
+  if(data.arm.alarmSystem !== "Armed") {
     console.log("disarmed at: ", new Date().toLocaleTimeString());
     GPIO.disarm();
   }

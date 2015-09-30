@@ -6,6 +6,7 @@ var express = require('express'),
     // Uncomment the line below if you want to test/ debug on a non-raspberry pi
     // GPIO = require('./consoleGPIO');
 
+
 // Listen for changes to the firebase data
 ref.on("value", function(snapshot){
   var data = snapshot.val();

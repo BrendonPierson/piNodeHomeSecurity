@@ -13,7 +13,38 @@
 </head>
 
 <body ng-cloak>
-  <div ng-controller="HomeCtrl">
+<!-- Shown if before user is authenticated -->
+  <div ng-controller="HomeCtrl" ng-hide="auth">
+    <!-- Toolbar -->
+    <md-content>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <span flex></span>
+          <h1>
+            <span class="md-title">Home Security Login</span>
+          </h1>
+          <span flex></span>
+        </div>
+      </md-toolbar>
+    </md-content>
+    <!-- Login  -->
+    <div layout layout-sm="column" layout-padding layout-margin>
+      <span flex></span>
+      <md-input-container flex>
+        <label>Email</label>
+        <input ng-model="email" type="email">
+      </md-input-container>
+      <md-input-container flex>
+        <label>Password</label>
+        <input ng-model="password" type="password">
+      </md-input-container>
+      <md-button class="md-accent md-raised md-hue-1" ng-click="login()">Login</md-button>
+      <span flex></span>
+    </div>
+  </div>
+
+  <!-- Shown once user is logged in -->
+  <div ng-controller="HomeCtrl" ng-show="auth">
 
     <!-- Nav Bar -->
     <md-content>
@@ -34,140 +65,127 @@
     </md-content>
 
 
-   
+    <div layout="column">
+      <section layout="row" flex>
+        <md-sidenav id="sideNav" flex class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
-  
+          <md-toolbar class="md-theme-indigo" hide-gt-md>
+            <h1 class="md-toolbar-tools">Home Security Controls<span flex></span><a><i class="fa fa-arrow-circle-left fa-2x" ng-click="toggleLeft()" hide-gt-md></i></a></h1>
+          </md-toolbar>
 
-
-
-
-<div layout="column">
-  <section layout="row" flex>
-    <md-sidenav id="sideNav" flex class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
-
-      <md-toolbar class="md-theme-indigo" hide-gt-md>
-        <h1 class="md-toolbar-tools">Home Security Controls<span flex></span><a><i class="fa fa-arrow-circle-left fa-2x" ng-click="toggleLeft()" hide-gt-md></i></a></h1>
-      </md-toolbar>
-
-      <md-content layout-padding>
-        <h1 hide-sm>Controls</h1> 
-        <div>
-          <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
-            <span class="md-title">Alarm System: <strong>{{ home.alarmSystem }}</strong></span>
-          </md-switch>
-        </div>
-        <div>
-          <md-switch ng-model="home.armedWithMotion" class="md-warn">
-           <span class="md-title"> Detect Motion: <strong>{{ home.armedWithMotion }}</strong></span>
-          </md-switch>
-        </div>
-
-
-          <!-- Sliders -->
-          <div class="layout">
-            <div class="flex flex-25 layout layout-align-center-center">
-              <span class="md-title">Arming Delay</span>
+          <md-content layout-padding>
+            <h1 hide-sm>Controls</h1> 
+            <div>
+              <md-switch ng-model="home.alarmSystem" aria-label="Switch 2" ng-true-value="'Armed'" ng-false-value="'Disarmed'" class="md-warn">
+                <span class="md-title">Alarm System: <strong>{{ home.alarmSystem }}</strong></span>
+              </md-switch>
             </div>
-            <md-slider min="0" max="60" ng-model="home.armDelay" aria-label="red" id="red-slider" class="ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
-              <div class="md-slider-wrapper">
-                <div class="md-track-container">
-                  <div class="md-track"></div>
-                  <div class="md-track md-track-fill" style="width: 49.8039%;"></div>
-                  <div class="md-track-ticks"></div>
-                </div>
-                <div class="md-thumb-container" style="left: 49.8039%;">
-                  <div class="md-thumb"></div>
-                  <div class="md-focus-thumb"></div>
-                  <div class="md-focus-ring"></div>
-                  <div class="md-sign">
-                    <span class="md-thumb-text">127</span>
-                  </div>
-                  <div class="md-disabled-thumb"></div>
-                </div>
+            <div>
+              <md-switch ng-model="home.armedWithMotion" class="md-warn">
+               <span class="md-title"> Detect Motion: <strong>{{ home.armedWithMotion }}</strong></span>
+              </md-switch>
+            </div>
+
+
+            <!-- Sliders -->
+            <div class="layout">
+              <div class="flex flex-25 layout layout-align-center-center">
+                <span class="md-title">Arming Delay</span>
               </div>
-            </md-slider>
-            <div class="flex flex-10 layout layout-align-center-center">
-              <input max="60" type="number" ng-model="home.armDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
-            </div>
-          </div>
-
-          <div class="layout">
-            <div class="flex flex-25 layout layout-align-center-center">
-              <span class="md-title">Enter Delay</span>
-            </div>
-            <md-slider min="0" max="30" ng-model="home.enterDelay" aria-label="red" id="red-slider" class="md-primary ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
-              <div class="md-slider-wrapper">
-                <div class="md-track-container">
-                  <div class="md-track"></div>
-                  <div class="md-track md-track-fill" style="width: 49.8039%;"></div>
-                  <div class="md-track-ticks"></div>
-                </div>
-                <div class="md-thumb-container" style="left: 49.8039%;">
-                  <div class="md-thumb"></div>
-                  <div class="md-focus-thumb"></div>
-                  <div class="md-focus-ring"></div>
-                  <div class="md-sign">
-                    <span class="md-thumb-text">127</span>
+              <md-slider min="0" max="60" ng-model="home.armDelay" aria-label="red" id="red-slider" class="ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
+                <div class="md-slider-wrapper">
+                  <div class="md-track-container">
+                    <div class="md-track"></div>
+                    <div class="md-track md-track-fill" style="width: 49.8039%;"></div>
+                    <div class="md-track-ticks"></div>
                   </div>
-                  <div class="md-disabled-thumb"></div>
+                  <div class="md-thumb-container" style="left: 49.8039%;">
+                    <div class="md-thumb"></div>
+                    <div class="md-focus-thumb"></div>
+                    <div class="md-focus-ring"></div>
+                    <div class="md-sign">
+                      <span class="md-thumb-text">127</span>
+                    </div>
+                    <div class="md-disabled-thumb"></div>
+                  </div>
                 </div>
+              </md-slider>
+              <div class="flex flex-10 layout layout-align-center-center">
+                <input max="60" type="number" ng-model="home.armDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
               </div>
-            </md-slider>
-            <div class="flex flex-10 layout layout-align-center-center">
-              <input max="30" type="number" ng-model="home.enterDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
             </div>
-          </div>
 
+            <div class="layout">
+              <div class="flex flex-25 layout layout-align-center-center">
+                <span class="md-title">Enter Delay</span>
+              </div>
+              <md-slider min="0" max="30" ng-model="home.enterDelay" aria-label="red" id="red-slider" class="md-primary ng-valid flex ng-isolate-scope md-default-theme ng-dirty ng-valid-parse ng-touched" tabindex="0" role="slider" aria-valuemin="0" aria-valuenow="127" aria-valuemax="30" aria-invalid="false" style="">
+                <div class="md-slider-wrapper">
+                  <div class="md-track-container">
+                    <div class="md-track"></div>
+                    <div class="md-track md-track-fill" style="width: 49.8039%;"></div>
+                    <div class="md-track-ticks"></div>
+                  </div>
+                  <div class="md-thumb-container" style="left: 49.8039%;">
+                    <div class="md-thumb"></div>
+                    <div class="md-focus-thumb"></div>
+                    <div class="md-focus-ring"></div>
+                    <div class="md-sign">
+                      <span class="md-thumb-text">127</span>
+                    </div>
+                    <div class="md-disabled-thumb"></div>
+                  </div>
+                </div>
+              </md-slider>
+              <div class="flex flex-10 layout layout-align-center-center">
+                <input max="30" type="number" ng-model="home.enterDelay" aria-label="red" aria-controls="red-slider" class="ng-pristine ng-untouched ng-valid flex" aria-invalid="false">
+              </div>
+            </div>
+          </md-content>
+        </md-sidenav>
+
+
+
+        <md-content id="status" class="md-whiteframe-z2" flex>
+          <div layout="column" layout-fill layout-align="top center">
+            <md-whiteframe flex  layout="column" layout-align="space-around center">
+            <div>
+              <h1>Current Status</h1>
+            </div>
+            <div id="armed" class="box">
+             <h3> Alarm:
+              {{ home.alarmSystem }}
+              </h3>
+            </div>
+            <div id="backdoor" class="box">
+              <h3>
+              Backdoor:
+              {{ home.backDoor }}
+              </h3>
+            </div>
+            <div id="frontdoor" class="box">
+              <h3>
+              Frontdoor:
+                {{ home.frontDoor }}
+              </h3>
+            </div>
+            <div>
+              <h3>
+                Siren:
+                {{ home.siren }}
+              </h3>
+            </div>
+            <div id="motion" class="box">
+              <h3>
+                {{ home.motion }}
+              </h3>
+            </div>
+          </md-whiteframe>
+        </div>
+        <div flex></div>
         </md-content>
-    </md-sidenav>
-
-
-
-    <md-content id="status" class="md-whiteframe-z2" flex>
-      <div layout="column" layout-fill layout-align="top center">
-        <md-whiteframe flex  layout="column" layout-align="space-around center">
-        <div>
-          <h1>Current Status</h1>
-        </div>
-        <div id="armed" class="box">
-         <h3> Alarm:
-          {{ home.alarmSystem }}
-          </h3>
-        </div>
-        <div id="backdoor" class="box">
-          <h3>
-          Backdoor:
-          {{ home.backDoor }}
-          </h3>
-        </div>
-        <div id="frontdoor" class="box">
-          <h3>
-          Frontdoor:
-            {{ home.frontDoor }}
-          </h3>
-        </div>
-        <div>
-          <h3>
-            Siren:
-            {{ home.siren }}
-          </h3>
-        </div>
-        <div id="motion" class="box">
-          <h3>
-            {{ home.motion }}
-          </h3>
-        </div>
-      </md-whiteframe>
-      </div>
-      <div flex></div>
-    </md-content>
-  </section>
-</div>
-
-
-
-
-
+      </section>
+    </div>
   </div> <!-- End Controller Div -->
 
 
@@ -183,7 +201,8 @@
   <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
   <script src="https://cdn.firebase.com/libs/angularfire/1.1.2/angularfire.min.js"></script>
   <script src="../public/scripts/app.js"></script>
-	<script src="../public/scripts/controllers/home-controller.js"></script>
+  <script src="../public/scripts/controllers/home-controller.js"></script>
+	<script src="../public/scripts/factories/Auth.js"></script>
 </body>
 
 </html>

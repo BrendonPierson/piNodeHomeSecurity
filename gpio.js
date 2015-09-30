@@ -74,10 +74,12 @@ var GPIO = function(){
       setTimeout(function(){
         if (frontDoorVal === "Open" || backDoorVal === 0 || motionVal === 1) {
           // Enter delay
+console.log("alarm tripped");
           setTimeout(function(){
             if(armed){
               buzzer.writeSync(1);
               ref.child('siren').set('On');
+              console.log("armed delay siren should be on");
             }
           }, enterDelay * 1000);
         } 

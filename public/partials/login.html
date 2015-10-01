@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="small-12 medium-9 large-8 small-centered columns" ng-hide="auth">
+
+    <div id="home" class="header panel">
+      <div class="sign">
+        <h1>Login</h1>
+      </div>
+      <p><span>Hi there.  Please enter your</span> <input type="email" class="login dream-search" placeholder="email" ng-model="email"> <span>and </span> <input type="password" class="login dream-search" placeholder="password" ng-model="password"><span> and click the submit button to login. <a class="login-button" ng-click="login()">Submit</a> </span>
+      </p>
+    </div> 
+  </div>
+
+  <div class="small-12 medium-9 large-8 small-centered columns" ng-show="auth">
+
+    <div id="home" class="header panel">
+      <div class="sign">
+        <h1>Logout</h1>
+      </div>
+      <p><span>I hope you enjoyed your stay! Be sure to come back soon.</span> <a class="login-button out" ng-click="logout()">Logout</a> 
+      </p>
+    </div> 
+  </div>
+</div>
+
+
+<!-- <div class="small-12 columns">
+  <form>
+    <p><span>Hi there.  Please enter your</span> <input type="email" class="login dream-search" placeholder="email" ng-model="email"> <span>and </span> <input type="password" class="login dream-search" placeholder="password" ng-model="password"><span> and click the submit button to login</span>
+    </p>
+
+  </form>
+
+</div> -->

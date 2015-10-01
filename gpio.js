@@ -58,14 +58,21 @@ var GPIO = function(){
   return {
 
     arm: function(armDelay, enterDelay){
-      var iv = setInterval(function(){
-        led.writeSync(led.readSync() === 0 ? 1 : 0)
-      }, 1000);
-      console.log("arm function running");
-      armed = true;
-      // Arm delay 
-      setTimeout(function(){
-      led.writeSync(1);
+        // Blink led when armed
+        var iv = setInterval(function(){
+          led.writeSync(led.readSync() === 0 ? 1 : 0)
+        }, 1000);
+        console.log("arm function running");
+        // use armed value as a way for disarm to break this function
+        armed = true;
+        // Arm delay 
+        setTimeout(function(){
+        // Stop blinking
+        clearInterval(iv);
+        // Light led to show its armed
+        led.writeSync(1);
+
+        // Reset the arming delay to 0 so that it trips immediately now
         ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0) {
           console.log("frontDoor or backDoor is open");
@@ -88,6 +95,7 @@ var GPIO = function(){
       armed = true;
       // Arm delay 
       setTimeout(function(){
+        clearInterval(iv);
         led.writeSync(1);
         ref.child('arm').child('armDelay').set(0);
         if (frontDoorVal === "Open" || backDoorVal === 0 || motionVal === 1) {

@@ -14,6 +14,9 @@ setInterval(function(){
   });
 }, 600000);
 
+var time = new Date().getTime();
+          var offsetTime =time -  (5 * 60 * 60 * 1000); 
+          console.log('Current Time: '+ new Date(offsetTime).toString());
 
 // Only track motion when it is selected
 ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
@@ -23,10 +26,9 @@ ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
     motion.watch(function(err, value){
       if(err) exit();
         if(value === 1) {
-          console.log("Motion detected at: ", new Date().toLocaleTimeString());
-          var options = { timeZone: 'CST', timeZoneName: 'short' };
-          var time = new Date().toLocaleTimeString('en-US', options);
-          ref.child('sensors').child('motion').set('Motion Detected at: '+ time );
+          var time = new Date().getTime();
+          var offsetTime = (5 * 60 * 60 * 1000) + time; 
+          ref.child('sensors').child('motion').set('Motion Detected at: '+ new Date(offsetTime).toString());
           ref.child('sensors').child('motionVal').set(1);
         } else {
           ref.child('sensors').child('motionVal').set(0);

@@ -1,6 +1,7 @@
 var Gpio = require('onoff').Gpio,
     tempSensor = require('ds1820-temp'),
     timeModule = require('../time'),
+    temp = {},
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
@@ -10,12 +11,13 @@ var Gpio = require('onoff').Gpio,
 setInterval(function(){
   tempSensor.readDevice('021500cf61ff').then(function(data){
     console.log("temp data", data.value);
-    var temp = { 
+    temp = { 
       value: data.value * (9/5) + 32,
       time: timeModule.date()
-    }
+    };
     ref.child('sensors').child('temp').set(temp.value);
     ref.child('tempLog/'+ timeModule.dateInt()).set(temp);
+    temp = {};
   });
 }, 600000);
 

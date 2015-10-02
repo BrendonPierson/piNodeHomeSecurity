@@ -1,7 +1,5 @@
 var timeModule = function(){
 
-  console.log('Current Time: '+ offsetDate.toString());
-
   return {
     date: function() {
       var date = new Date().getTime();
@@ -20,8 +18,5 @@ var timeModule = function(){
     }
   }
 }
-   
-  
-
 
 module.exports = timeModule();

@@ -10,6 +10,9 @@ var timeModule = function(){
     },
     localTime: function(){
       return offsetDate.toLocaleTimeString();
+    },
+    dateInt: function() {
+      return offsetDate.getTime();
     }
   }
 }

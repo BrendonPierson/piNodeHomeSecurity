@@ -15,7 +15,7 @@ setInterval(function(){
       time: timeModule.date()
     }
     ref.child('sensors').child('temp').set(temp.value);
-    ref.child('tempLog').push(temp);
+    ref.child('tempLog/'+ timeModule.dateInt()).set(temp);
   });
 }, 600000);
 

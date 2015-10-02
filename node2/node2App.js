@@ -1,6 +1,6 @@
 var Gpio = require('onoff').Gpio,
     tempSensor = require('ds1820-temp'),
-    timeModule = require('./time'),
+    timeModule = require('../time'),
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),

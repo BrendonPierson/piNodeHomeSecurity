@@ -58,7 +58,7 @@ var GPIO = function(){
       console.log("backdoor open at: ", new Date().toLocaleTimeString());
     }
   });
-      
+
   process.on('SIGINT',exit);
 
   return {
@@ -72,8 +72,8 @@ var GPIO = function(){
         // use armed value as a way for disarm to break this function
         armed = true;
         // Only send one text by tracking this variable
-        textNotSent = false;
-        // Arm delay 
+        textNotSent = true;
+        // Arm delay
         setTimeout(function(){
         // Stop blinking
         clearInterval(iv);
@@ -92,7 +92,7 @@ var GPIO = function(){
               ref.child('sensors').child('siren').set('On');
             }
           }, enterDelay * 1000);
-        } 
+        }
       }, armDelay * 1000);
     },
 
@@ -101,8 +101,8 @@ var GPIO = function(){
         led.writeSync(led.readSync() === 0 ? 1 : 0)
       }, 500);
       armed = true;
-      textNotSent = false;
-      // Arm delay 
+      textNotSent = true;
+      // Arm delay
       setTimeout(function(){
         clearInterval(iv);
         led.writeSync(1);
@@ -117,7 +117,7 @@ var GPIO = function(){
               console.log("armed delay siren should be on");
             }
           }, enterDelay * 1000);
-        } 
+        }
       }, armDelay * 1000);
     },
 

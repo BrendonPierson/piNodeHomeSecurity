@@ -6,6 +6,8 @@ var GPIO = function(){
     button = new Gpio(18, 'in', 'both'),
     door = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
+    twilio = require('./text'),
+    textNotSent = true,
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/"),
     frontDoorVal,
@@ -25,7 +27,11 @@ var GPIO = function(){
     var data = snapshot.val();
     motionVal = data.motionVal;
     frontDoorVal = data.frontDoor;
-  })
+    if(data.siren === 'On' && textNotSent){
+      twilio();
+      textNotSent = false;
+    }
+  });
 
   button.watch(function(err, value){
     if(err) exit();
@@ -65,6 +71,8 @@ var GPIO = function(){
         console.log("arm function running");
         // use armed value as a way for disarm to break this function
         armed = true;
+        // Only send one text by tracking this variable
+        textNotSent = false;
         // Arm delay 
         setTimeout(function(){
         // Stop blinking
@@ -93,6 +101,7 @@ var GPIO = function(){
         led.writeSync(led.readSync() === 0 ? 1 : 0)
       }, 500);
       armed = true;
+      textNotSent = false;
       // Arm delay 
       setTimeout(function(){
         clearInterval(iv);

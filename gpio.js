@@ -28,7 +28,7 @@ var GPIO = function(){
     motionVal = data.motionVal;
     frontDoorVal = data.frontDoor;
     if(data.siren === 'On' && textNotSent){
-      twilio();
+      twilio.sendMsg("Someone has tripped the alarm");
       textNotSent = false;
     }
   });

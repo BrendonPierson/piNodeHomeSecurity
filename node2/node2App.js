@@ -12,7 +12,7 @@ setInterval(function(){
   tempSensor.readDevice('021500cf61ff').then(function(data){
     console.log("temp data", data.value);
     temp = { 
-      value: data.value * (9/5) + 32,
+      value: (data.value * (9/5) + 32).toFixed(2),
       time: timeModule.date()
     };
     ref.child('sensors').child('temp').set(temp.value);

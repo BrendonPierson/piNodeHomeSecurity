@@ -13,7 +13,7 @@ var Gpio = require('onoff').Gpio,
   if (dhtSensor.initialize()) {
     outsideDHT = dhtSensor.read();
     console.log("outsideDHT", outsideDHT);
-    outsideConditions.temp = outsideDHT.temperature * (9/5) + 32).toFixed(2);
+    outsideConditions.temp = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
     outsideConditions.humidity = outsideDHT.humidity;
     outsideConditions.time = timeModule.date();
     ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
@@ -27,7 +27,7 @@ setInterval(function(){
   if (dhtSensor.initialize()) {
     outsideDHT = dhtSensor.read();
     console.log("outsideDHT", outsideDHT);
-    outsideConditions.temp = outsideDHT.temperature * (9/5) + 32).toFixed(2);
+    outsideConditions.temp = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
     outsideConditions.humidity = outsideDHT.humidity;
     outsideConditions.time = timeModule.date();
     ref.child('sensors').child('tempOutside').set(outsideConditions.temp);

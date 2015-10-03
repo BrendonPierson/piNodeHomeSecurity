@@ -8,7 +8,9 @@
         <span class="fi-cloud"></span>
       </div>
       <div class="info">
-        <h4 class="text-center">Temperature: {{ stats.sensors.temp.toFixed(2) }}&deg;F</h4>
+        <h4 class="text-center">Inside: {{ stats.sensors.temp }}&deg;F</h4>
+        <h4 class="text-center">Outside: {{ stats.sensors.tempOutside }}&deg;F</h4>
+        <h4 class="text-center">Outside Humidity: {{ stats.sensors.humOutside }}%</h4>
       </div>
     </div>
   </div>

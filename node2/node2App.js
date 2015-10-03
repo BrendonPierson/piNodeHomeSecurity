@@ -17,6 +17,7 @@ var Gpio = require('onoff').Gpio,
     outsideConditions.humidity = outsideDHT.humidity;
     outsideConditions.time = timeModule.date();
     ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
+    ref.child('sensors').child('humOutside').set(outsideConditions.humidity);
     ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
   } else {
     console.warn('Failed to initialize dhtSensor');
@@ -31,6 +32,7 @@ setInterval(function(){
     outsideConditions.humidity = outsideDHT.humidity;
     outsideConditions.time = timeModule.date();
     ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
+    ref.child('sensors').child('humOutside').set(outsideConditions.humidity);
     ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
   } else {
     console.warn('Failed to initialize dhtSensor');

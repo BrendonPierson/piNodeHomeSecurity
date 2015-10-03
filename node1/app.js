@@ -1,6 +1,6 @@
-var express = require('express'),
-    app = express(),
-    Firebase = require("firebase"),
+// var express = require('express'),
+//     app = express(),
+var Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/"),
     timeModule = require('../time'),
     GPIO = require('./gpio');
@@ -32,13 +32,13 @@ ref.on("value", function(snapshot){
 });
 
 
-//serve the static files (css, client js)
-app.use("/public", express.static(__dirname + '/public'));
+// //serve the static files (css, client js)
+// app.use("/public", express.static(__dirname + '/public'));
 
-//start listening on the port
-var server = app.listen(process.env.PORT || 80, function(){
-  console.log("Express server listening on port %s", server.address().port);
-});
+// //start listening on the port
+// var server = app.listen(process.env.PORT || 80, function(){
+//   console.log("Express server listening on port %s", server.address().port);
+// });
 
 
 

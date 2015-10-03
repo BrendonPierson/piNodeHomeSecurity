@@ -1,9 +1,0 @@
-{
-  "firebase": "securepenning",
-  "public": ".",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
-}

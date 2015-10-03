@@ -2,13 +2,33 @@ var Gpio = require('onoff').Gpio,
     tempSensor = require('ds1820-temp'),
     timeModule = require('../time'),
     temp = {},
+    dhtSensor = require('./DHTsensor'),
+    outsideDHT = {},
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
+  if (dhtSensor.initialize()) {
+    outsideDHT = dhtSensor.read();
+    console.log("outsideDHT", outsideDHT);
+  } else {
+    console.warn('Failed to initialize dhtSensor');
+  }
 
 setInterval(function(){
+
+
+  if (dhtSensor.initialize()) {
+    outsideDHT = dhtSensor.read();
+    console.log("outsideDHT", outsideDHT);
+  } else {
+    console.warn('Failed to initialize dhtSensor');
+  }
+
+
+
+
   tempSensor.readDevice('021500cf61ff').then(function(data){
     console.log("temp data", data.value);
     temp = { 
@@ -19,6 +39,7 @@ setInterval(function(){
     ref.child('tempLog/'+ timeModule.dateInt()).set(temp);
     temp = {};
   });
+
 }, 600000);
 
 // Only track motion when it is selected

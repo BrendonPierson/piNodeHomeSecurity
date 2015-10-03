@@ -1,23 +1,21 @@
 // Temperature DHT11
+var sensor = function(){
+  var sensorLib = require('node-dht-sensor');
 
-var sensorLib = require('node-dht-sensor');
-
-var sensor = {
+  return {
     initialize: function () {
-        return sensorLib.initialize(11, 18);
+      return sensorLib.initialize(11, 18);
     },
     read: function () {
-        var readout = sensorLib.read();
-        console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
-            'humidity: ' + readout.humidity.toFixed(2) + '%');
-        setTimeout(function () {
-            sensor.read();
-        }, 2000);
+      var readout = sensorLib.read();
+      // console.log('Temperature: ' + readout.temperature.toFixed(2) + 'C, ' +
+        // 'humidity: ' + readout.humidity.toFixed(2) + '%');
+      return readout;
     }
+  };
+
+    
 };
 
-if (sensor.initialize()) {
-    sensor.read();
-} else {
-    console.warn('Failed to initialize sensor');
-}
+
+module.exports = sensor();

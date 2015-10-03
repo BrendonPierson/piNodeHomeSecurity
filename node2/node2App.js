@@ -4,6 +4,7 @@ var Gpio = require('onoff').Gpio,
     temp = {},
     dhtSensor = require('./DHTsensor'),
     outsideDHT = {},
+    outsideConditions = {},
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
@@ -12,16 +13,25 @@ var Gpio = require('onoff').Gpio,
   if (dhtSensor.initialize()) {
     outsideDHT = dhtSensor.read();
     console.log("outsideDHT", outsideDHT);
+    outsideConditions.temp = outsideDHT.temperature * (9/5) + 32).toFixed(2);
+    outsideConditions.humidity = outsideDHT.humidity;
+    outsideConditions.time = timeModule.date();
+    ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
+    ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
   } else {
     console.warn('Failed to initialize dhtSensor');
   }
 
 setInterval(function(){
 
-
   if (dhtSensor.initialize()) {
     outsideDHT = dhtSensor.read();
     console.log("outsideDHT", outsideDHT);
+    outsideConditions.temp = outsideDHT.temperature * (9/5) + 32).toFixed(2);
+    outsideConditions.humidity = outsideDHT.humidity;
+    outsideConditions.time = timeModule.date();
+    ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
+    ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
   } else {
     console.warn('Failed to initialize dhtSensor');
   }

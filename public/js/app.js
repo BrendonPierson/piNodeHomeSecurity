@@ -1,5 +1,5 @@
 $(document).foundation();
-var app = angular.module("SecureApp", ['ngRoute', "firebase", "rzModule"]);
+var app = angular.module("SecureApp", ['ngRoute', "firebase", "rzModule", "n3-line-chart"]);
 
 // This first part tells the app that auth is required, 
 //if the user isn't logged in it redirects to the login page
@@ -67,15 +67,15 @@ app.config(['$routeProvider', function($routeProvider){
         }]
       }
     }).
-    // when('/addPin', {
-    //   templateUrl: 'partials/addPin.html',
-    //   controller: 'PinCtrl',
-    //   resolve: {
-    //     "currentAuth": ["Auth", function(Auth) {
-    //       return Auth.$requireAuth();
-    //     }]
-    //   }
-    // }).
+    when('/tempGraph', {
+      templateUrl: 'partials/tempGraph.html',
+      controller: 'TempGraphCtrl',
+      resolve: {
+        "currentAuth": ["Auth", function(Auth) {
+          return Auth.$requireAuth();
+        }]
+      }
+    }).
     otherwise({
       redirectTo: '/login'
     });

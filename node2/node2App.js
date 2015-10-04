@@ -63,7 +63,7 @@ function tempSet(){
         insideTemp: insideTemperature,
         outsideTemp: outsideTemperature,
         humidity: outsideHumidity,
-        x: timeModule.realDate();
+        x: timeModule.realDate()
       }
       ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);      
     });    

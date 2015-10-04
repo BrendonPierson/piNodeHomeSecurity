@@ -1,58 +1,14 @@
 var Gpio = require('onoff').Gpio,
     tempSensor = require('ds1820-temp'),
     timeModule = require('../time'),
-    temp = {},
     dhtSensor = require('./DHTsensor'),
-    outsideDHT = {},
-    outsideConditions = {},
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
-  if (dhtSensor.initialize()) {
-    outsideDHT = dhtSensor.read();
-    console.log("outsideDHT", outsideDHT);
-    outsideConditions.temp = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
-    outsideConditions.humidity = outsideDHT.humidity;
-    outsideConditions.time = timeModule.date();
-    ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
-    ref.child('sensors').child('humOutside').set(outsideConditions.humidity);
-    ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
-  } else {
-    console.warn('Failed to initialize dhtSensor');
-  }
-
-setInterval(function(){
-
-  if (dhtSensor.initialize()) {
-    outsideDHT = dhtSensor.read();
-    console.log("outsideDHT", outsideDHT);
-    outsideConditions.temp = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
-    outsideConditions.humidity = outsideDHT.humidity;
-    outsideConditions.time = timeModule.date();
-    ref.child('sensors').child('tempOutside').set(outsideConditions.temp);
-    ref.child('sensors').child('humOutside').set(outsideConditions.humidity);
-    ref.child('outsideLog/'+ timeModule.dateInt()).set(outsideConditions);
-  } else {
-    console.warn('Failed to initialize dhtSensor');
-  }
-
-
-
-
-  tempSensor.readDevice('021500cf61ff').then(function(data){
-    console.log("temp data", data.value);
-    temp = { 
-      value: (data.value * (9/5) + 32).toFixed(2),
-      time: timeModule.date()
-    };
-    ref.child('sensors').child('temp').set(temp.value);
-    ref.child('tempLog/'+ timeModule.dateInt()).set(temp);
-    temp = {};
-  });
-
-}, 600000);
+tempSet();
+setInterval(tempSet, 600000);
 
 // Only track motion when it is selected
 ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
@@ -71,7 +27,6 @@ ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
   }
 });
 
-
 frontDoor.watch(function(err, value){
   if(err) exit();
 
@@ -89,6 +44,35 @@ function exit() {
   motion.unexport();
   process.exit();
 }
+
+function tempSet(){
+  if (dhtSensor.initialize()) {
+    outsideDHT = dhtSensor.read();
+    console.log("outsideDHT", outsideDHT);
+    var outsideTemperature = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
+    var outsideHumidity = outsideDHT.humidity;
+    outsideConditions.time = timeModule.date();
+    ref.child('sensors').child('tempOutside').set(outsideTemperature);
+    ref.child('sensors').child('humOutside').set(outsideHumidity);
+
+    tempSensor.readDevice('021500cf61ff').then(function(data){
+      console.log("insidetemp data", data.value);
+      var insideTemperature = (data.value * (9/5) + 32).toFixed(2);
+      ref.child('sensors').child('temp').set(insideTemperature);
+
+      var conditions = {
+        insideTemp: insideTemperature,
+        outsideTemp: outsideTemperature,
+        humidity: outsideHumidity,
+        x: timeModule.date();
+      }
+      ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);      
+    });    
+  } else {
+    console.warn('Failed to initialize dhtSensor');
+  }
+}
+
 
 process.on('SIGINT',exit);
 

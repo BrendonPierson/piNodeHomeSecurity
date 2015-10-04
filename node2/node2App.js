@@ -51,7 +51,6 @@ function tempSet(){
     console.log("outsideDHT", outsideDHT);
     var outsideTemperature = (outsideDHT.temperature * (9/5) + 32).toFixed(2);
     var outsideHumidity = outsideDHT.humidity;
-    outsideConditions.time = timeModule.date();
     ref.child('sensors').child('tempOutside').set(outsideTemperature);
     ref.child('sensors').child('humOutside').set(outsideHumidity);
 
@@ -64,7 +63,7 @@ function tempSet(){
         insideTemp: insideTemperature,
         outsideTemp: outsideTemperature,
         humidity: outsideHumidity,
-        x: timeModule.date();
+        x: timeModule.date()
       }
       ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);      
     });    

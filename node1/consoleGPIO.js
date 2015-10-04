@@ -1,3 +1,4 @@
+// Use if you want to test on non raspberryPi computer
 var GPIO = function(){
 
   var buzzer = "buzzer"

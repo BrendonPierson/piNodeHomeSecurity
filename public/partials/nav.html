@@ -1,7 +1,7 @@
 <div id="realNav" class="icon-bar five-up">
   <a ng-href="#/home" class="item">
     <i class="fa fa-home"></i>
-    <label>{{ home }}</label>
+    <label>Home</label>
   </a>
   <a ng-href="#/stats" class="item">
     <i class="fa fa-tachometer"></i>
@@ -15,15 +15,19 @@
     <i class="fa fa-video-camera"></i>
     <label>Video</label>
   </a>
-  <a class="item" ng-href="#/login">
+  <a ng-hide="auth" class="item" ng-href="#/login">
     <i class="fa fa-bookmark"></i>
     <label>Login</label>
+  </a>
+  <a ng-show="auth" class="item" ng-href="#/login">
+    <i class="fa fa-bookmark"></i>
+    <label>Logout</label>
   </a>
 </div>
 <div id="hiddenNav" class="icon-bar five-up">
   <a ng-href="#/home" class="item">
     <i class="fa fa-home"></i>
-    <label>{{ home }}</label>
+    <label>Home</label>
   </a>
   <a ng-href="#/stats" class="item">
     <i class="fa fa-tachometer"></i>

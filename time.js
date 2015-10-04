@@ -1,5 +1,5 @@
+// Module provides functions for various date formats
 var timeModule = function(){
-
   return {
     date: function() {
       var date = new Date().getTime();
@@ -21,5 +21,4 @@ var timeModule = function(){
     }
   }
 }
-
 module.exports = timeModule();

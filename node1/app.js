@@ -1,5 +1,3 @@
-// var express = require('express'),
-//     app = express(),
 var Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/"),
     timeModule = require('../time'),
@@ -11,7 +9,7 @@ var Firebase = require("firebase"),
 // Listen for changes to the firebase data
 ref.on("value", function(snapshot){
   var data = snapshot.val();
-  console.log("fb data", data);
+  console.log("fb data", data.sensors);
   console.log("time of fb change", timeModule.localTime());
 
   // Arm the system
@@ -30,19 +28,3 @@ ref.on("value", function(snapshot){
   }
 
 });
-
-
-// //serve the static files (css, client js)
-// app.use("/public", express.static(__dirname + '/public'));
-
-// //start listening on the port
-// var server = app.listen(process.env.PORT || 80, function(){
-//   console.log("Express server listening on port %s", server.address().port);
-// });
-
-
-
-
-
-
-

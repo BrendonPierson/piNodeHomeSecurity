@@ -1,14 +1,7 @@
 app.controller("VideoCtrl", 
   ["$scope", 
-  "Auth", 
-  function($scope, Auth) {
-  // currentAuth (provided by resolve) will contain the
-  // authenticated user or null if not logged in
-
-    $scope.auth = Auth;
-
-
-    console.log("auth", $scope.auth.$getAuth());
-
-
+  "$location",
+  function($scope, $location) {
+    // Determine whether to use localhost or external address
+    $scope.displayLocal = $location.host() === "localhost" ? true : false;
 }]);

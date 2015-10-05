@@ -1,24 +1,20 @@
+
+// Set Nav to position fixed bottom on small screens
 #realNav {
   position: fixed;
   bottom: 0;
   left: 0;
   z-index: 10;
 }
+// Use hidden nav to take up same space as the real nav
 #hiddenNav {
   position: static;
   visibility: hidden;
 }
-
 @media only screen and (min-width: 640px) {
-  body {
-    padding-bottom: none;
-  }
+  // Fix nav to the top on larger screens
   #realNav {
-    position: static;
+    bottom: initial;
     top: 0;
-    left: 0;
-  }
-  #hiddenNav {
-    display: none;
   }
 }

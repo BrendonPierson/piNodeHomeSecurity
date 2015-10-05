@@ -8,7 +8,11 @@ var Gpio = require('onoff').Gpio,
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
 // Read initial temperature sensors and log data to firebase
-tempSet();
+if (dhtSensor.initialize()) {
+  tempSet();
+} else {
+  console.warn('Failed to initialize dhtSensor');
+}
 // Read temp sensors at 10min interval
 setInterval(tempSet, 600000);
 
@@ -49,7 +53,8 @@ function exit() {
 
 // Function to read and log temperature to firebase
 function tempSet(){
-  if (dhtSensor.initialize()) {
+
+  // if (dhtSensor.initialize()) {
     outsideDHT = dhtSensor.read();
     console.log("outsideDHT", outsideDHT);
     var outsideTemperature = (outsideDHT.temperature * (9/5) + 32);
@@ -70,9 +75,9 @@ function tempSet(){
       }
       ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);      
     });    
-  } else {
-    console.warn('Failed to initialize dhtSensor');
-  }
+  // } else {
+  //   console.warn('Failed to initialize dhtSensor');
+  // }
 }
 
 process.on('SIGINT',exit);

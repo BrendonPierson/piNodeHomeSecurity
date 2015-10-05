@@ -7,19 +7,22 @@ app.controller("TempGraphCtrl",
   // Data for the graph
   $scope.data = fb.getConditionsArr();
 
+  // Change the number of x axes tix based on window size
+  var numOfXTicks = jQuery(window).width()/200;
+
   // Options for the graph
   $scope.options = {
     axes: {
-      x: {type: 'date', key: '$id', zoomable: true, ticksFormatter: function(val){return new Date(val).toDateString()}},
+      x: {type: 'date', key: '$id', zoomable: true, ticks: numOfXTicks, ticksFormatter: function(val){return new Date(val).toDateString()}},
       y: {type: 'linear',min:0, innerTicks: true, grid: true, zoomable: true},
-      y2: {type: 'linear', max:100,}
+      y2: {type: 'linear', max:100}
     },
     margin: {
       // left: 100
     },
     series: [
-      {y: 'insideTemp', color: "#17becf", drawDots: true, dotSize: 4, thickness: '4px', label: 'Inside Temp'},
-      {y: 'outsideTemp', color: "#9467bd", drawDots: true, dotSize: 4, thickness: '4px', label: 'Outside Temp'},
+      {y: 'insideTemp', color: "#17becf",  dotSize: 4, thickness: '4px', label: 'Inside Temp'},
+      {y: 'outsideTemp', color: "#9467bd",  dotSize: 4, thickness: '4px', label: 'Outside Temp'},
       {y: 'humidity', axis: 'y2', color: "#bcbd22", thickness: '4px', label: 'Outside Humidity'}
     ],
     lineMode: 'linear',
@@ -27,11 +30,12 @@ app.controller("TempGraphCtrl",
     tooltip: {
       mode: 'scrubber', 
       formatter: function(x, y, series) {
-        return series.label + " " + y;
+        var date = new Date(parseInt(x));
+        return date.toDateString() + " " + date.toLocaleTimeString() + ": " + series.label + " " + y;
       }
     },
     drawLegend: true,
-    drawDots: true,
+    drawDots: false,
     hideOverflow: true,
   }
 

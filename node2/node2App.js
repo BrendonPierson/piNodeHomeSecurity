@@ -4,6 +4,9 @@ var Gpio = require('onoff').Gpio,
     dhtSensor = require('./DHTsensor'),
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
+    Player = require('player'),
+    // player = new Player('./siren.mp3'),
+    player = Player([ __dirname + './siren.mp3', __dirname + './siren.mp3']),
     Firebase = require("firebase"),
     ref = new Firebase("https://securepenning.firebaseio.com/");
 
@@ -16,9 +19,30 @@ if (dhtSensor.initialize()) {
 // Read temp sensors at 10min interval
 setInterval(tempSet, 600000);
 
+// Play siren music Locally
+ref.child('sensors/siren').on('value', function(snapshot){
+  var siren = snapshot.val();
+  if(siren === "On"){
+
+    player.play(function(err, player){
+      console.log('playend!');
+      // When mps ends add it back into player array
+      player.add(__dirname + './siren.mp3');
+    });
+
+    player.on('playing',function(item){
+      console.log('im playing siren');
+    });
+
+  } else {
+    player.stop();
+    console.log("Player Stopped");
+  }
+});
+
 // Only track motion when it is selected
 ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
-  data = snapshot.val();
+  var data = snapshot.val();
   console.log("armed with motion fb", data);
   if(data) {
     motion.watch(function(err, value){

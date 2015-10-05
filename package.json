@@ -25,6 +25,7 @@
     "firebase": "^2.2.9",
     "node-dht-sensor": "0.0.8",
     "onoff": "^1.0.2",
+    "player": "^0.5.1",
     "twilio": "^2.4.0"
   }
 }

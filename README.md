@@ -1,3 +1,5 @@
+*Under Construction*
+
 # piNodeHomeSecurity
 A home automation system built on raspberryPi's, [nodejs](https://nodejs.org/en/), [angularjs](https://angularjs.org/), and [firebase](https://www.firebase.com/).
 

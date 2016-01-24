@@ -6,7 +6,6 @@ var GPIO = function(){
     door = "door"
     armed = false;
 
-      
   return {
     linkTest: function(){
       console.log("GPIO module is correctly loaded");

@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb/base",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    comma-dangle: [2, "never"],
+    semi: [2, "never"],
+    space-before-function-paren: [2, "never"],
+    func-names: 0,
+    no-console: 0,
+    quotes: 0,
+    padded-blocks: 0,
+    curly: 0,
+    no-console: 0,
+    no-unexpected-multiline: 2,
+    one-var: 0,
+    no-param-reassign: 0
+  }
+}

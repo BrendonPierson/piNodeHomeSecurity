@@ -28,7 +28,7 @@ var pins = [_pinConfig.buzzer, _pinConfig.led, _pinConfig.button, _pinConfig.doo
 ref.child('security').on('value', function (snapshot) {
   var data = snapshot.val();
   _pinConfig.led.writeSync(data.armed);
-  if (data.armed) _pinConfig.buzzer.writeSync(data.siren);
+  _pinConfig.buzzer.writeSync(data.siren);
   (0, _pollAlarm2.default)(data);
 });
 

@@ -18,7 +18,7 @@ const pins = [buzzer, led, button, door]
 ref.child('security').on('value', (snapshot) => {
   const data = snapshot.val()
   led.writeSync(data.armed)
-  if (data.armed) buzzer.writeSync(data.siren)
+  buzzer.writeSync(data.siren)
   pollAlarm(data)
 })
 

@@ -15,7 +15,7 @@ var ref = new _firebase2.default("https://securepenning.firebaseio.com/");
 
 function pollAlarm(data) {
 
-  if (data.backDoor || data.frontDoor && data.armed) {
+  if ((data.backDoor || data.frontDoor) && data.armed) {
     setTimeout(function () {
       return ref.child('security').child('siren').set(1);
     });

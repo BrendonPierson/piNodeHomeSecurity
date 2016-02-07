@@ -26,14 +26,14 @@ door.watch((err, value) => {
   if (err) exit()
 
   ref.child('security').child('backDoor').set(value)
-  console.log("backDoor changed to: ", value, " at ", 
-    moment().format("dddd, MMMM Do YYYY, h:mm:ss a"))
+  console.log("backDoor changed to: ", value, " at ",
+    moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
 })
 
 button.watch((err, value) => {
   if (err) exit()
   if (value === 0) {
-    console.log("disarm push button pressed at: ", moment().format("dddd, MMMM Do YYYY, h:mm:ss a"))
+    console.log("disarm push button pressed at: ", moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
     ref.child('security').child('armed').set(0, (error) => {
       if (error) {
         console.log("error", error)
@@ -45,6 +45,6 @@ button.watch((err, value) => {
 })
 
 process.on('SIGINT', () => {
-  console.log("Exiting cleanly from gpio.js at: ", moment().format("dddd, MMMM Do YYYY, h:mm:ss a"))
+  console.log("Exiting cleanly from gpio.js at: ", moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
   exit(pins)
 })

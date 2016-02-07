@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "npm run clean && babel src --out-dir dist",
-    "pi1": "pm2 start --optimize_for_size --max_old_space_size=128 --gc_interval=100 dist/pi1/sensors.js",
+    "pi1": "pm2 start --node-args='--optimize_for_size --max_old_space_size=128 --gc_interval=100' dist/pi1/sensors.js",
     "lint": "eslint src"
   },
   "keywords": [

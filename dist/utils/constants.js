@@ -3,6 +3,4 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
-  FBURL: "https://securepenning.firebaseio.com/"
-};
+var FBURL = exports.FBURL = "https://securepenning.firebaseio.com/";

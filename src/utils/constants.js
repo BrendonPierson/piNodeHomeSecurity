@@ -1,4 +1,1 @@
-
-export default {
-  FBURL: "https://securepenning.firebaseio.com/"
-}
+export const FBURL = "https://securepenning.firebaseio.com/"

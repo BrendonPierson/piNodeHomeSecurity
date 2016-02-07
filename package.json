@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "npm run clean && babel src --out-dir dist",
-    "pi1": "node --optimize_for_size --max_old_space_size=128 --gc_interval=100 dist/pi1/sensors.js",
+    "pi1": "forever start --optimize_for_size --max_old_space_size=128 --gc_interval=100 dist/pi1/sensors.js",
     "lint": "eslint src"
   },
   "keywords": [
@@ -21,6 +21,7 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^2.4.0",
+    "forever": "^0.15.1",
     "moment": "^2.11.2",
     "onoff": "^1.0.3"
   },

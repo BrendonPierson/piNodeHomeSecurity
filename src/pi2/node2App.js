@@ -1,7 +1,57 @@
+'use strict'
+//http://www.arroyocode.com/raspberry-pi-nodejs-web-server-with-pm2/
+
+import Firebase from 'firebase'
+import { FBURL } from '../utils/constants'
+import moment from 'moment'
+import exit from '../utils/exit'
+import {
+  motion,
+  frontDoor
+} from './pinConfig'
+
+const ref = new Firebase(FBURL)
+const pins = [motion, frontDoor]
+
+frontDoor.watch((err, value) => {
+  if (err) exit()
+
+  ref.child('security').child('frontDoor').set(value)
+  console.log("backDoor changed to: ", value, " at ",
+    moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+})
+
+// Only track motion when it is selected
+motion.watch((err, value) => {
+  if (err) exit(pins)
+  ref.child('security').child('motion').set(value)
+  if (value) 
+    ref.child('sensors').child('lastMotion')
+      .set(moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+})
+
+process.on('SIGINT', () => {
+  console.log("Exiting cleanly from gpio.js at: ",
+    moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+  exit(pins)
+})
+
+
+
+
+
+
+
+
+
+
+        ref.child('sensors').child('motionVal').set(1);
+      } else {
+:
 var Gpio = require('onoff').Gpio,
+    dhtSensor = require('./DHTsensor'),
     tempSensor = require('ds1820-temp'),
     timeModule = require('../time'),
-    dhtSensor = require('./DHTsensor'),
     frontDoor = new Gpio(21, 'in', 'both'),
     motion = new Gpio(19, 'in', 'both'),
     Firebase = require("firebase"),
@@ -15,41 +65,6 @@ if (dhtSensor.initialize()) {
 }
 // Read temp sensors at 10min interval
 setInterval(tempSet, 600000);
-
-// Only track motion when it is selected
-ref.child('arm').child('armedWithMotion').on('value', function(snapshot){
-  var data = snapshot.val();
-  console.log("armed with motion fb", data);
-  if(data) {
-    motion.watch(function(err, value){
-      if(err) exit();
-      if(value === 1) {
-        ref.child('sensors').child('motion').set('Motion Detected at: '+ timeModule.date());
-        ref.child('sensors').child('motionVal').set(1);
-      } else {
-        ref.child('sensors').child('motionVal').set(0);
-      }
-    });
-  }
-});
-
-frontDoor.watch(function(err, value){
-  if(err) exit();
-  if(value === 1){
-    ref.child('sensors').child('frontDoor').set('Closed');
-    console.log("Front door closed at: ", timeModule.localTime());
-  } else {
-    ref.child('sensors').child('frontDoor').set('Open');
-    console.log("Front door open at: ", timeModule.localTime());
-  }
-});
-
-// Exit cleanly by unexporting GPIO pins in use
-function exit() {
-  frontDoor.unexport();
-  motion.unexport();
-  process.exit();
-}
 
 // Function to read and log temperature to firebase
 function tempSet(){
@@ -73,12 +88,9 @@ function tempSet(){
         humidity: outsideHumidity,
         x: timeModule.realDate()
       }
-      ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);      
-    });    
+      ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);
+    });
   // } else {
   //   console.warn('Failed to initialize dhtSensor');
   // }
 }
-
-process.on('SIGINT',exit);
-

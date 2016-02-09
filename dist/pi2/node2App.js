@@ -1,85 +1,88 @@
-'use strict';
+// 'use strict'
+// //http://www.arroyocode.com/raspberry-pi-nodejs-web-server-with-pm2/
 
-var Gpio = require('onoff').Gpio,
-    tempSensor = require('ds1820-temp'),
-    timeModule = require('../time'),
-    dhtSensor = require('./DHTsensor'),
-    frontDoor = new Gpio(21, 'in', 'both'),
-    motion = new Gpio(19, 'in', 'both'),
-    Firebase = require("firebase"),
-    ref = new Firebase("https://securepenning.firebaseio.com/");
+// import Firebase from 'firebase'
+// import { FBURL } from '../utils/constants'
+// import moment from 'moment'
+// import exit from '../utils/exit'
+// import {
+//   motion,
+//   frontDoor
+// } from './pinConfig'
 
-// Read initial temperature sensors and log data to firebase
-if (dhtSensor.initialize()) {
-  tempSet();
-} else {
-  console.warn('Failed to initialize dhtSensor');
-}
-// Read temp sensors at 10min interval
-setInterval(tempSet, 600000);
+// const ref = new Firebase(FBURL)
+// const pins = [motion, frontDoor]
 
-// Only track motion when it is selected
-ref.child('arm').child('armedWithMotion').on('value', function (snapshot) {
-  var data = snapshot.val();
-  console.log("armed with motion fb", data);
-  if (data) {
-    motion.watch(function (err, value) {
-      if (err) exit();
-      if (value === 1) {
-        ref.child('sensors').child('motion').set('Motion Detected at: ' + timeModule.date());
-        ref.child('sensors').child('motionVal').set(1);
-      } else {
-        ref.child('sensors').child('motionVal').set(0);
-      }
-    });
-  }
-});
+// frontDoor.watch((err, value) => {
+//   if (err) exit()
 
-frontDoor.watch(function (err, value) {
-  if (err) exit();
-  if (value === 1) {
-    ref.child('sensors').child('frontDoor').set('Closed');
-    console.log("Front door closed at: ", timeModule.localTime());
-  } else {
-    ref.child('sensors').child('frontDoor').set('Open');
-    console.log("Front door open at: ", timeModule.localTime());
-  }
-});
+//   ref.child('security').child('frontDoor').set(value)
+//   console.log("backDoor changed to: ", value, " at ",
+//     moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+// })
 
-// Exit cleanly by unexporting GPIO pins in use
-function exit() {
-  frontDoor.unexport();
-  motion.unexport();
-  process.exit();
-}
+// // Only track motion when it is selected
+// motion.watch((err, value) => {
+//   if (err) exit(pins)
+//   ref.child('security').child('motion').set(value)
+//   if (value)
+//     ref.child('sensors').child('lastMotion')
+//       .set(moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+// })
 
-// Function to read and log temperature to firebase
-function tempSet() {
+// process.on('SIGINT', () => {
+//   console.log("Exiting cleanly from gpio.js at: ",
+//     moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+//   exit(pins)
+// })
 
-  // if (dhtSensor.initialize()) {
-  outsideDHT = dhtSensor.read();
-  console.log("outsideDHT", outsideDHT);
-  var outsideTemperature = outsideDHT.temperature * (9 / 5) + 32;
-  var outsideHumidity = outsideDHT.humidity;
-  ref.child('sensors').child('tempOutside').set(outsideTemperature);
-  ref.child('sensors').child('humOutside').set(outsideHumidity);
+//         ref.child('sensors').child('motionVal').set(1);
+//       } else {
+// :
+// var Gpio = require('onoff').Gpio,
+//     dhtSensor = require('./DHTsensor'),
+//     tempSensor = require('ds1820-temp'),
+//     timeModule = require('../time'),
+//     frontDoor = new Gpio(21, 'in', 'both'),
+//     motion = new Gpio(19, 'in', 'both'),
+//     Firebase = require("firebase"),
+//     ref = new Firebase("https://securepenning.firebaseio.com/");
 
-  tempSensor.readDevice('021500cf61ff').then(function (data) {
-    console.log("insidetemp data", data.value);
-    var insideTemperature = (data.value * (9 / 5) + 32).toFixed(2);
-    ref.child('sensors').child('temp').set(insideTemperature);
+// // Read initial temperature sensors and log data to firebase
+// if (dhtSensor.initialize()) {
+//   tempSet();
+// } else {
+//   console.warn('Failed to initialize dhtSensor');
+// }
+// // Read temp sensors at 10min interval
+// setInterval(tempSet, 600000);
 
-    var conditions = {
-      insideTemp: insideTemperature,
-      outsideTemp: outsideTemperature,
-      humidity: outsideHumidity,
-      x: timeModule.realDate()
-    };
-    ref.child('conditionsLog/' + timeModule.dateInt()).set(conditions);
-  });
-  // } else {
-  //   console.warn('Failed to initialize dhtSensor');
-  // }
-}
+// // Function to read and log temperature to firebase
+// function tempSet(){
 
-process.on('SIGINT', exit);
+//   // if (dhtSensor.initialize()) {
+//     outsideDHT = dhtSensor.read();
+//     console.log("outsideDHT", outsideDHT);
+//     var outsideTemperature = (outsideDHT.temperature * (9/5) + 32);
+//     var outsideHumidity = outsideDHT.humidity;
+//     ref.child('sensors').child('tempOutside').set(outsideTemperature);
+//     ref.child('sensors').child('humOutside').set(outsideHumidity);
+
+//     tempSensor.readDevice('021500cf61ff').then(function(data){
+//       console.log("insidetemp data", data.value);
+//       var insideTemperature = (data.value * (9/5) + 32).toFixed(2);
+//       ref.child('sensors').child('temp').set(insideTemperature);
+
+//       var conditions = {
+//         insideTemp: insideTemperature,
+//         outsideTemp: outsideTemperature,
+//         humidity: outsideHumidity,
+//         x: timeModule.realDate()
+//       }
+//       ref.child('conditionsLog/'+ timeModule.dateInt()).set(conditions);
+//     });
+//   // } else {
+//   //   console.warn('Failed to initialize dhtSensor');
+//   // }
+// }
+"use strict";

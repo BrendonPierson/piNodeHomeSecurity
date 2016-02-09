@@ -19,7 +19,7 @@ export function watch() {
   door.watch((err, value) => {
     if (err) exit(pins)
 
-    ref.child('security').child('backDoor').set(value ? 0 : 1)
+    ref.child('security').child('backDoor').set(value)
     console.log("backDoor changed to: ", value, " at ",
       moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
   })

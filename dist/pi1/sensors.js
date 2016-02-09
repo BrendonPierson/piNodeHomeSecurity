@@ -33,7 +33,7 @@ function watch() {
   _pinConfig.door.watch(function (err, value) {
     if (err) (0, _exit2.default)(pins);
 
-    ref.child('security').child('backDoor').set(value ? 0 : 1);
+    ref.child('security').child('backDoor').set(value);
     console.log("backDoor changed to: ", value, " at ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
   });
 

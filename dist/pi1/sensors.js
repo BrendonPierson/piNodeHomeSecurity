@@ -52,12 +52,18 @@ function watch() {
   });
 }
 
-function light(data) {
-  _pinConfig.led.writeSync(data.armed);
+function light(armed) {
+  console.log("light firing");
+  _pinConfig.led.write(armed, function (err) {
+    return console.log(err);
+  });
 }
 
-function buzz(data) {
-  _pinConfig.buzzer.writeSync(data.siren);
+function buzz(siren) {
+  console.log("siren firing");
+  _pinConfig.buzzer.write(siren, function (err) {
+    return console.log(err);
+  });
 }
 
 function unexportPins() {

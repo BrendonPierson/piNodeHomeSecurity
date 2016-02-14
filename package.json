@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "compile": "npm run clean && babel src --out-dir dist",
-    "pi1": "pm2 start --node-args='--optimize_for_size --max_old_space_size=128 --gc_interval=100' dist/pi1/index.js --watch",
+    "pi1": "pm2 start --node-args='--optimize_for_size --max_old_space_size=128 --gc_interval=100' dist/pi2/index.js --watch",
     "lint": "eslint src"
   },
   "keywords": [
@@ -22,7 +22,8 @@
   "dependencies": {
     "firebase": "^2.4.0",
     "moment": "^2.11.2",
-    "onoff": "^1.0.3"
+    "onoff": "^1.0.3",
+    "therm-ds18b20": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

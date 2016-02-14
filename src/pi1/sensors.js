@@ -40,12 +40,14 @@ export function watch() {
   })
 }
 
-export function light(data) {
-  led.writeSync(data.armed)
+export function light(armed) {
+  console.log("light firing")
+  led.write(armed, (err) => console.log(err))
 }
 
-export function buzz(data) {
-  buzzer.writeSync(data.siren)
+export function buzz(siren) {
+  console.log("siren firing")
+  buzzer.write(siren, (err) => console.log(err))
 }
 
 export function unexportPins() {

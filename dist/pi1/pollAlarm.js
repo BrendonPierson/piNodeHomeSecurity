@@ -23,7 +23,7 @@ function soundSiren(data) {
 
 function pollAlarm(data) {
 
-  if ((!data.backDoor || data.frontDoor) && data.armed) {
+  if ((!data.backDoor || !data.frontDoor) && data.armed) {
     soundSiren(data);
   } else if (data.armedWithMotion && data.motion) {
     soundSiren(data);

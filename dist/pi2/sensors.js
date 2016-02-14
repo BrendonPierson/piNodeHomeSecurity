@@ -40,7 +40,8 @@ var indoorThermometer = exports.indoorThermometer = new _thermDs18b2.default({
 }).on('init', function () {
   console.log('inited');
 }).on('data', function (data) {
-  if (data) ref.child('security').child('frontDoor').set(data);
+  var date = Date.now();
+  if (data) ref.child('sensors').child('indoorTemp').child('date').set({ data: data, date: date });
 }).on('error', function (error) {
   console.log(error);
 }).run();
@@ -51,14 +52,14 @@ function watch() {
     if (err) (0, _exit2.default)(pins);
 
     ref.child('security').child('frontDoor').set(value);
-    console.log("backDoor changed to: ", value, " at ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
+    console.log("frontDoor changed to: ", value, " at ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
   });
 
   _pinConfig.motion.watch(function (err, value) {
     if (err) (0, _exit2.default)(pins);
 
     ref.child('security').child('motion').set(value);
-    console.log("backDoor changed to: ", value, " at ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
+    console.log("motion changed to: ", value, " at ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
   });
 }
 

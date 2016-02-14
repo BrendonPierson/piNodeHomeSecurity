@@ -1,5 +1,4 @@
 'use strict'
-
 import Firebase from 'firebase'
 import { FBURL } from '../utils/constants'
 import moment from 'moment'
@@ -7,12 +6,14 @@ import moment from 'moment'
 import {
   watch,
   light,
-  unexportPins
+  unexportPins,
+  indoorThermometer
 } from './sensors'
 
 const ref = new Firebase(FBURL)
 
 watch()
+indoorThermometer()
 
 ref.child('security').on('value', (snapshot) => {
   const data = snapshot.val()

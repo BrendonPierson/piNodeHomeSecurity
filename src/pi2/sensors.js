@@ -26,7 +26,8 @@ export const indoorThermometer = new Thermometer({
 }).on('init', () => {
   console.log('inited')
 }).on('data', (data) => {
-  if (data) ref.child('security').child('frontDoor').set(data)
+  const date = Date.now()
+  if (data) ref.child('sensors').child('indoorTemp').child('date').set({ data, date })
 }).on('error', (error) => {
   console.log(error)
 }).run()
@@ -38,7 +39,7 @@ export function watch() {
     if (err) exit(pins)
 
     ref.child('security').child('frontDoor').set(value)
-    console.log("backDoor changed to: ", value, " at ",
+    console.log("frontDoor changed to: ", value, " at ",
       moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
   })
 
@@ -46,10 +47,9 @@ export function watch() {
     if (err) exit(pins)
 
     ref.child('security').child('motion').set(value)
-    console.log("backDoor changed to: ", value, " at ",
+    console.log("motion changed to: ", value, " at ",
       moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
   })
-
 }
 
 export function light(armed) {

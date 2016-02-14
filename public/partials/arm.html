@@ -8,7 +8,7 @@
       <div class="action">
         <div class="switch round large">
           <h3>Alarm System!</h3>
-          <input ng-model="stats.arm.alarmSystem" ng-true-value="'Armed'" ng-false-value="'Disarmed'" id="on-off" type="checkbox">
+          <input ng-model="security.armed" ng-true-value="1" ng-false-value="0" id="on-off" type="checkbox">
             <label for="on-off">
               <span class="switch-on">ON</span>
               <span class="switch-off">OFF</span>
@@ -16,7 +16,7 @@
         </div>
         <div class="switch round large">
           <h3>Detect Motion?</h3>
-          <input ng-model="stats.arm.armedWithMotion" id="yes-no" type="checkbox">
+          <input ng-model="security.armedWithMotion" id="yes-no" type="checkbox">
           <label for="yes-no">
             <span class="switch-on">Yes</span>
             <span class="switch-off">No</span>
@@ -29,20 +29,16 @@
   <div id="sliders" class="small-12 medium-6 columns">
     <h3 class="text-center">Arm Delay</h3>
     <rzslider
-     rz-slider-model="stats.arm.armDelay"
+     rz-slider-model="security.armDelay"
      rz-slider-floor="0"
      rz-slider-ceil="60"></rzslider>
 
     <hr />
     <h3 class="text-center">Enter Delay</h3>
     <rzslider
-     rz-slider-model="stats.arm.enterDelay"
+     rz-slider-model="security.enterDelay"
      rz-slider-floor="0"
      rz-slider-ceil="30"></rzslider>
 
   </div>
 </div>
-
-
-
-

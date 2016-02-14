@@ -17,6 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ref = new _firebase2.default(_constants.FBURL);
 
 (0, _sensors.watch)();
+(0, _sensors.indoorThermometer)();
 
 ref.child('security').on('value', function (snapshot) {
   var data = snapshot.val();

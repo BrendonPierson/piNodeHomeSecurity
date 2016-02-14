@@ -44,7 +44,7 @@ var indoorThermometer = exports.indoorThermometer = new _thermDs18b2.default({
   if (data) ref.child('sensors').child('indoorTemp').child('date').set({ data: data, date: date });
 }).on('error', function (error) {
   console.log(error);
-}).run();
+});
 
 function watch() {
 

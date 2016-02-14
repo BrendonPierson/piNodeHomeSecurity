@@ -30,7 +30,7 @@ export const indoorThermometer = new Thermometer({
   if (data) ref.child('sensors').child('indoorTemp').child('date').set({ data, date })
 }).on('error', (error) => {
   console.log(error)
-}).run()
+})
 
 
 export function watch() {

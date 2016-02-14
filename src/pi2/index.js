@@ -13,7 +13,7 @@ import {
 const ref = new Firebase(FBURL)
 
 watch()
-indoorThermometer()
+indoorThermometer.run()
 
 ref.child('security').on('value', (snapshot) => {
   const data = snapshot.val()

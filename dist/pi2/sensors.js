@@ -31,7 +31,7 @@ var _pinConfig = require('./pinConfig');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ref = new _firebase2.default(_constants.FBURL);
-var pins = [_pinConfig.led, _pinConfig.door, _pinConfig.motion];
+var pins = [_pinConfig.led, _pinConfig.frontDoor, _pinConfig.motion];
 
 var indoorThermometer = exports.indoorThermometer = new _thermDs18b2.default({
   // https://github.com/chamerling/ds18b20
@@ -48,7 +48,7 @@ var indoorThermometer = exports.indoorThermometer = new _thermDs18b2.default({
 
 function watch() {
 
-  _pinConfig.door.watch(function (err, value) {
+  _pinConfig.frontDoor.watch(function (err, value) {
     if (err) (0, _exit2.default)(pins);
 
     ref.child('security').child('frontDoor').set(value);

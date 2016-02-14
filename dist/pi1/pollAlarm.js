@@ -25,7 +25,7 @@ function pollAlarm(data) {
 
   if ((!data.backDoor || !data.frontDoor) && data.armed) {
     soundSiren(data);
-  } else if (data.armedWithMotion && data.motion) {
+  } else if (data.armedWithMotion && data.motion && data.armed) {
     soundSiren(data);
   }
 }

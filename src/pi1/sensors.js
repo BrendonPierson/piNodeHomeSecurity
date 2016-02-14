@@ -29,6 +29,7 @@ export function watch() {
     if (value === 0) {
       console.log("disarm push button pressed at: ",
         moment().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"))
+      ref.child('security').child('armedWithMotion').set(0)
       ref.child('security').child('armed').set(0, (error) => {
         if (error) {
           console.log("error", error)
@@ -41,12 +42,10 @@ export function watch() {
 }
 
 export function light(armed) {
-  console.log("light firing")
   led.write(armed, (err) => console.log(err))
 }
 
 export function buzz(siren) {
-  console.log("siren firing")
   buzzer.write(siren, (err) => console.log(err))
 }
 

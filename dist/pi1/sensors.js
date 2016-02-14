@@ -41,6 +41,7 @@ function watch() {
     if (err) (0, _exit2.default)(pins);
     if (value === 0) {
       console.log("disarm push button pressed at: ", (0, _moment2.default)().subtract(6, 'h').format("dddd, MMMM Do YYYY, h:mm:ss a"));
+      ref.child('security').child('armedWithMotion').set(0);
       ref.child('security').child('armed').set(0, function (error) {
         if (error) {
           console.log("error", error);
@@ -53,14 +54,12 @@ function watch() {
 }
 
 function light(armed) {
-  console.log("light firing");
   _pinConfig.led.write(armed, function (err) {
     return console.log(err);
   });
 }
 
 function buzz(siren) {
-  console.log("siren firing");
   _pinConfig.buzzer.write(siren, function (err) {
     return console.log(err);
   });

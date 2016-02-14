@@ -27,7 +27,8 @@ export const indoorThermometer = new Thermometer({
   console.log('inited')
 }).on('data', (data) => {
   const date = Date.now()
-  if (data) ref.child('sensors').child('indoorTemp').child('date').set({ data, date })
+  data.F = data.C * (9 / 5) + 32
+  if (data) ref.child('sensors').child('indoorTemp').child(date).set({ data })
 }).on('error', (error) => {
   console.log(error)
 })

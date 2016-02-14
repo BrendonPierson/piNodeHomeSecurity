@@ -12,12 +12,12 @@ import Thermometer from 'therm-ds18b20'
 import {
   motion,
   led,
-  door
+  frontDoor
 }
 from './pinConfig'
 
 const ref = new Firebase(FBURL)
-const pins = [led, door, motion]
+const pins = [led, frontDoor, motion]
 
 export const indoorThermometer = new Thermometer({
   // https://github.com/chamerling/ds18b20
@@ -35,7 +35,7 @@ export const indoorThermometer = new Thermometer({
 
 export function watch() {
 
-  door.watch((err, value) => {
+  frontDoor.watch((err, value) => {
     if (err) exit(pins)
 
     ref.child('security').child('frontDoor').set(value)

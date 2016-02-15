@@ -6,6 +6,10 @@ var _firebase2 = _interopRequireDefault(_firebase);
 
 var _constants = require('../utils/constants');
 
+var _auth = require('../utils/auth');
+
+var _auth2 = _interopRequireDefault(_auth);
+
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
@@ -15,6 +19,7 @@ var _sensors = require('./sensors');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ref = new _firebase2.default(_constants.FBURL);
+(0, _auth2.default)(ref);
 
 (0, _sensors.watch)();
 _sensors.indoorThermometer.run();

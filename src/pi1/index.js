@@ -2,6 +2,7 @@
 
 import Firebase from 'firebase'
 import { FBURL } from '../utils/constants'
+import auth from '../utils/auth'
 import moment from 'moment'
 import pollAlarm from './pollAlarm'
 
@@ -13,7 +14,7 @@ import {
 } from './sensors'
 
 const ref = new Firebase(FBURL)
-
+auth(ref)
 watch()
 
 ref.child('security').on('value', (snapshot) => {

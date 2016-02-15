@@ -1,6 +1,7 @@
 'use strict'
 import Firebase from 'firebase'
 import { FBURL } from '../utils/constants'
+import auth from '../utils/auth'
 import moment from 'moment'
 
 import {
@@ -11,6 +12,7 @@ import {
 } from './sensors'
 
 const ref = new Firebase(FBURL)
+auth(ref)
 
 watch()
 indoorThermometer.run()

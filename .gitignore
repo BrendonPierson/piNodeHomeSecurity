@@ -3,4 +3,5 @@ bower_components
 firebaseRules.json
 text.js
 .env
-
+src/utils/auth.js
+dist/utils/auth.js

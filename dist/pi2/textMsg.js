@@ -12,15 +12,15 @@ exports.default = function () {
   }, function (err, message) {
     console.log("err", err);
     console.log("message", message);
-  });
 
-  client.messages.create({
-    body: "SOMEONE HAS TRIPPED THE ALARM!!!!!!!!!",
-    to: process.env.ASH_CELL,
-    from: process.env.T_CELL
-  }, function (err, message) {
-    console.log("err", err);
-    console.log("message", message);
+    client.messages.create({
+      body: "SOMEONE HAS TRIPPED THE ALARM!!!!!!!!!",
+      to: process.env.ASH_CELL,
+      from: process.env.T_CELL
+    }, function (err2, message2) {
+      console.log("err", err2);
+      console.log("message", message2);
+    });
   });
 };
 

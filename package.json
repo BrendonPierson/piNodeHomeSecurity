@@ -21,6 +21,7 @@
   "author": "Brendon Pierson",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "firebase": "^2.4.0",
     "moment": "^2.11.2",
     "onoff": "^1.0.3",

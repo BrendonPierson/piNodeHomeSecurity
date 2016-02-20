@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -24,12 +24,13 @@ exports.default = function () {
   });
 };
 
-var _twilio = require("twilio");
+var _twilio = require('twilio');
 
 var _twilio2 = _interopRequireDefault(_twilio);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+require('dotenv').config();
 var accountSid = process.env.ACCOUNT_SID;
 var authToken = process.env.AUTH_TOKEN;
 

@@ -24,7 +24,8 @@
     "firebase": "^2.4.0",
     "moment": "^2.11.2",
     "onoff": "^1.0.3",
-    "therm-ds18b20": "^0.1.0"
+    "therm-ds18b20": "^0.1.0",
+    "twilio": "^3.3.0-edge"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

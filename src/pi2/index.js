@@ -1,8 +1,11 @@
 'use strict'
 import Firebase from 'firebase'
-import { FBURL } from '../utils/constants'
+import {
+  FBURL
+} from '../utils/constants'
 import auth from '../utils/auth'
 import moment from 'moment'
+import text from './textMsg'
 
 import {
   watch,
@@ -20,6 +23,8 @@ indoorThermometer.run()
 ref.child('security').on('value', (snapshot) => {
   const data = snapshot.val()
   light(data.armed)
+  if (data.siren)
+    text()
 })
 
 process.on('SIGINT', () => {
